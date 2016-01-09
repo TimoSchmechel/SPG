@@ -3,7 +3,11 @@ using System.Collections;
 
 public class PickupScipt : MonoBehaviour {
 
-    public int ammoAmount = 5;
+    public int amount = 5;
+
+	public bool ammo;
+	public bool health;
+
     private float resetTimer;
     public float resetTimeCap = 4f;
     private bool startReset;
@@ -36,9 +40,16 @@ public class PickupScipt : MonoBehaviour {
     {
         if(col.CompareTag("Player"))
         {
-            col.GetComponent<Player>().currentAmmo += ammoAmount;
+			if(ammo){
+            col.GetComponent<Player>().currentAmmo += amount;
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
+			}
+			if(health){
+				col.GetComponent<Player>().currentHealth += amount;
+				GetComponent<SphereCollider>().enabled = false;
+				GetComponent<MeshRenderer>().enabled = false;
+			}
         }
 
         startReset = true;
