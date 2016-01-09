@@ -11,19 +11,12 @@ public class ShootServerManager : NetworkBehaviour
     public Transform gunShooter;
     public Transform endShooter;
 
-    
-
     public void Shoot()
     {
         if (isClient)//checks if this code is running on the client
             CmdFire();
 
     }
-
- 
-
-
-
 
     /**
 	 * The command tag sends a message from any client including server to the server
@@ -38,7 +31,6 @@ public class ShootServerManager : NetworkBehaviour
         //RpcUpdateSlider(this.gameObject);
 
     }
-
 
     /**
     * this ClientRpc tag is called on the server and runs on all the clients
@@ -59,13 +51,12 @@ public class ShootServerManager : NetworkBehaviour
         ammo.value = player.currentAmmo;
     }*/
 
-
     // if it is hit by a bullet, send to damage calculator to apply damage or respawn.
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Paintball")
+        if (collision.gameObject.tag == "Paintball")
         {
-            RpcDamageCalculator(gameObject.name,bullet.GetComponent<BulletManager>().damage);
+            RpcDamageCalculator(gameObject.name, bullet.GetComponent<BulletManager>().damage);
         }
     }
 

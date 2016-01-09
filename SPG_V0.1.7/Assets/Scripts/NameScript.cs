@@ -5,17 +5,15 @@ using UnityEngine.UI;
 public class NameScript : MonoBehaviour
 {
     public InputField nameInput;
-    public string textString;
+  //  public string textString; -- see line 18
 
-	// Use this for initialization
 	void Start () {
         if (nameInput == null)
             nameInput = FindObjectOfType<InputField>();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-        textString = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
+       // textString = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey); --- wasnt doing anything
 	}
 
     public void SaveName()
