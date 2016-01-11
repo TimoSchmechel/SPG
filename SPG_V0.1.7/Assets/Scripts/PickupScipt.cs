@@ -5,8 +5,8 @@ public class PickupScipt : MonoBehaviour {
 
     public int amount = 5;
 
-	public bool ammo;
-	public bool health;
+	public bool ammo= false;
+	public bool health = false;
 
     private float resetTimer;
     public float resetTimeCap = 4f;
@@ -40,12 +40,12 @@ public class PickupScipt : MonoBehaviour {
     {
         if(col.CompareTag("Player"))
         {
-			if(ammo){
+			if(ammo && !health){
             col.GetComponent<Player>().currentAmmo += amount;
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
 			}
-			if(health){
+			if(health && !ammo){
 				col.GetComponent<Player>().currentHealth += amount;
 				GetComponent<SphereCollider>().enabled = false;
 				GetComponent<MeshRenderer>().enabled = false;
