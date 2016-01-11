@@ -13,9 +13,7 @@ public class PlayerSetup : NetworkBehaviour {
 	Camera sceneCam;
 
     // if not local player, disable components in array. set components in unity inspector
-	void Start()
-	{   Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+	void Start(){
 
         if (!isLocalPlayer)
         {
@@ -30,16 +28,7 @@ public class PlayerSetup : NetworkBehaviour {
 		}
 
 	}
-    void OnGUI()
-    {
-        GUILayout.BeginVertical();
-        // Release cursor on escape keypress
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-    }
+  
     // set player name
     public override void OnStartClient()
     {

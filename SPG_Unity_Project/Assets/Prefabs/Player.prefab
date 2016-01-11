@@ -191,8 +191,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187216}
-  m_LocalRotation: {x: 0.0050660875, y: -0.10734809, z: -0.00494512, w: 0.9941963}
-  m_LocalPosition: {x: 170.99985, y: 365.00037, z: 165.00005}
+  m_LocalRotation: {x: .00506608747, y: -.107348092, z: -.00494511984, w: .994196296}
+  m_LocalPosition: {x: 170.999847, y: 365.000366, z: 165.000046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 444008}
@@ -216,9 +216,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101300}
-  m_LocalRotation: {x: -0.021068031, y: -0.078744635, z: -0.02529657, w: 0.9963511}
-  m_LocalPosition: {x: 0.15231583, y: -0.5924842, z: 1.1266588}
-  m_LocalScale: {x: 0.0018535558, y: 0.0018535552, z: 0.0018535552}
+  m_LocalRotation: {x: -.021068031, y: -.078744635, z: -.0252965707, w: .996351123}
+  m_LocalPosition: {x: .152315825, y: -.592484176, z: 1.1266588}
+  m_LocalScale: {x: .00185355579, y: .00185355521, z: .00185355521}
   m_Children:
   - {fileID: 456102}
   - {fileID: 483854}
@@ -283,14 +283,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -306,7 +306,7 @@ Camera:
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
+  m_StereoSeparation: .0219999999
   m_StereoMirrorMode: 0
 --- !u!23 &2307892
 MeshRenderer:
@@ -329,7 +329,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -355,7 +355,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -381,7 +381,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -416,7 +416,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 4
-  m_AngularDrag: 0.05
+  m_AngularDrag: .0500000007
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -461,11 +461,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Target: {fileID: 439804}
   m_ChildIndex: 0
-  m_SendInterval: 0.1
+  m_SendInterval: .100000001
   m_SyncRotationAxis: 1
   m_RotationSyncCompression: 0
-  m_MovementThreshold: 0.001
-  m_InterpolateRotation: 0.5
+  m_MovementThreshold: .00100000005
+  m_InterpolateRotation: .5
   m_InterpolateMovement: 0
 --- !u!114 &11440876
 MonoBehaviour:
@@ -612,11 +612,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.1
+  m_SendInterval: .100000001
   m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
-  m_MovementTheshold: 0.001
+  m_MovementTheshold: .00100000005
   m_SnapThreshold: 5
   m_InterpolateRotation: 10
   m_InterpolateMovement: 1
@@ -637,7 +637,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!153 &15304284
 ConfigurableJoint:
@@ -690,40 +690,46 @@ ConfigurableJoint:
   m_TargetPosition: {x: 0, y: 0, z: 0}
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
-    serializedVersion: 3
+    serializedVersion: 2
+    mode: 0
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 3.40282326e+38
   m_YDrive:
-    serializedVersion: 3
+    serializedVersion: 2
+    mode: 0
     positionSpring: 20
     positionDamper: 0
     maximumForce: 40
   m_ZDrive:
-    serializedVersion: 3
+    serializedVersion: 2
+    mode: 0
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 3.40282326e+38
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
   m_RotationDriveMode: 0
   m_AngularXDrive:
-    serializedVersion: 3
+    serializedVersion: 2
+    mode: 0
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 3.40282326e+38
   m_AngularYZDrive:
-    serializedVersion: 3
+    serializedVersion: 2
+    mode: 0
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 3.40282326e+38
   m_SlerpDrive:
-    serializedVersion: 3
+    serializedVersion: 2
+    mode: 0
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 3.40282326e+38
   m_ProjectionMode: 0
-  m_ProjectionDistance: 0.1
+  m_ProjectionDistance: .100000001
   m_ProjectionAngle: 180
   m_ConfiguredInWorldSpace: 0
   m_SwapBodies: 0

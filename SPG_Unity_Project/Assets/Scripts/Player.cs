@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
+    bool CursorLockedVar;
     //Total Max Health
     [SerializeField]
     private int maxHealth = 100;
@@ -23,6 +24,11 @@ public class Player : NetworkBehaviour
     //sets defaults when game loaded
     void Awake()
     {
+        //sets mouse cursor to lock and hide
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = (false);
+        CursorLockedVar = (true);
+
         SetDefaults();
         nameText.text = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
     }
@@ -55,8 +61,21 @@ public class Player : NetworkBehaviour
 
     void Update()
     {
+        //toggles mouse cursor to lock and hide by pressing escape
+        if (Input.GetKeyDown(KeyCode.Escape) && !CursorLockedVar)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = (false);
+            CursorLockedVar = (true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && CursorLockedVar)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = (true);
+            CursorLockedVar = (false);
+        }
         //nameText.text = this.name.ToString();
-        
+
     }
 
 }
