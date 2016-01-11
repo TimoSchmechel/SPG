@@ -14,8 +14,10 @@ public class PlayerSetup : NetworkBehaviour {
 
     // if not local player, disable components in array. set components in unity inspector
 	void Start()
-	{
-		if (!isLocalPlayer)
+	{   Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        if (!isLocalPlayer)
         {
             DisableComponents();
             AssignRemoteLayer(); // changes layer name
@@ -28,7 +30,16 @@ public class PlayerSetup : NetworkBehaviour {
 		}
 
 	}
-
+    void OnGUI()
+    {
+        GUILayout.BeginVertical();
+        // Release cursor on escape keypress
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
     // set player name
     public override void OnStartClient()
     {
