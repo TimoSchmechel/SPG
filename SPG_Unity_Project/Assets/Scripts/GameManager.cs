@@ -15,6 +15,13 @@ public class GameManager : MonoBehaviour
         _player.transform.name = _playerID;
     }
 
+    public static void RegisterPlayer2(string name, Player _player)
+    {
+        string _playerID = name;
+        players.Add(_playerID, _player);
+        _player.transform.name = _playerID;
+    }
+
     public static void UnRegisterPlayer(string _playerID)
     {
         players.Remove(_playerID);

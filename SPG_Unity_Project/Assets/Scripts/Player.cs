@@ -30,7 +30,7 @@ public class Player : NetworkBehaviour
         CursorLockedVar = (true);
 
         SetDefaults();
-        nameText.text = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
+        //nameText.text = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
     }
 
     // when any damage is taken lowers current health
@@ -74,8 +74,7 @@ public class Player : NetworkBehaviour
             Cursor.visible = (true);
             CursorLockedVar = (false);
         }
-        //nameText.text = this.name.ToString();
-
+        nameText.text = this.name.ToString();
     }
 
 }

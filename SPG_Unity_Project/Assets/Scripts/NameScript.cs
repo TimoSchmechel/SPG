@@ -18,6 +18,9 @@ public class NameScript : MonoBehaviour
 
     public void SaveName()
     {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
         PlayerPrefs.SetString(GlobalScript.ppPlayerNameKey, nameInput.text);
+        PlayerPrefs.Save();
     }
 }

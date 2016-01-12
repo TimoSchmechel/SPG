@@ -12,9 +12,16 @@ public class PlayerSetup : NetworkBehaviour {
 
 	Camera sceneCam;
 
-    // if not local player, disable components in array. set components in unity inspector
-	void Start(){
+    private string playerID;
+    private string nameString;
+    private PlayerSetup PS;
 
+
+
+    // if not local player, disable components in array. set components in unity inspector
+    void Start()
+    {
+        PS = this;
         if (!isLocalPlayer)
         {
             DisableComponents();
@@ -27,15 +34,56 @@ public class PlayerSetup : NetworkBehaviour {
 			}
 		}
 
+        nameString = GlobalScript.instanceName;
+        Cmd_UpdateNameServer(playerID, nameString);
+
 	}
-  
+
+
+
+    //Sends updated name call across all clients. 
+    public void Updater(string ID, string name)
+    {
+        if (isLocalPlayer)
+        {
+            Cmd_UpdateNameServer(ID, name);
+        }
+    }
+
+    [Command]
+    public void Cmd_UpdateNameServer(string ID, string name)
+    {
+        Rpc_UpdateNameClient(ID, name);
+    }
+
+    [ClientRpc]
+    public void Rpc_UpdateNameClient(string ID, string name)
+    {
+        if (GameObject.Find(ID))
+        {
+            GameManager.UnRegisterPlayer(ID);
+            GameObject tempObject = GameObject.Find(ID);
+            tempObject.transform.name = name;
+            GameManager.RegisterPlayer2(name, GetComponent<Player>());
+        }
+    }
+
+
+
+    void Update()
+    {
+        PS.Updater(playerID, nameString);
+    }
+
     // set player name
     public override void OnStartClient()
     {
+        GlobalScript.instanceName = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
         base.OnStartClient();
 
         string _netID = GetComponent<NetworkIdentity>().netId.ToString();
         Player _player = GetComponent<Player>();
+        playerID = "Player " + _netID;
 
         GameManager.RegisterPlayer(_netID, _player);
         
