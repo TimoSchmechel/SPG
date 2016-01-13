@@ -12,6 +12,11 @@ public class Player : NetworkBehaviour
     private int maxAmmo = 20;
     private int ammoShotCount = 1;
 
+    public Weapon currentWeapon;
+    public Weapon weapon1;
+    public Weapon weapon2;
+    public Transform weaponHolder;
+
 
     //Current Health synced across servers
     [SyncVar]
@@ -19,8 +24,8 @@ public class Player : NetworkBehaviour
 
     //[SyncVar]
     public int currentAmmo;
-    public int magazineAmmo;
-    public int magazineSize = 10;
+   // public int magazineAmmo;
+   // public int magazineSize = 10;
 
     public TextMesh nameText;
 
@@ -39,7 +44,51 @@ public class Player : NetworkBehaviour
     void Start()
     {
         currentAmmo = maxAmmo;
-        magazineAmmo = magazineSize;
+
+        GameObject weaponObject = GameObject.Instantiate(weapon1.gameObject, weaponHolder.position, weaponHolder.rotation) as GameObject;//instantiate as temp gameobject to assign it to variable
+        weapon1 = weaponObject.GetComponent<Weapon>();
+
+        GameObject weaponObject2 = GameObject.Instantiate(weapon2.gameObject, weaponHolder.position, weaponHolder.rotation) as GameObject;//instantiate as temp gameobject to assign it to variable
+        weapon2 = weaponObject2.GetComponent<Weapon>();
+
+        weapon1.gameObject.transform.parent = weaponHolder;
+        weapon2.gameObject.transform.parent = weaponHolder;
+
+        currentWeapon = weapon1;
+
+        setWeaponVisibility(weapon2, false);
+    }
+
+    //helper function to clean code up
+    private void setWeaponVisibility(Weapon w, bool enabled)
+    {
+        Renderer[] weaponComponentsRenderers = w.gameObject.GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in weaponComponentsRenderers)
+        {
+            renderer.enabled = enabled;
+        }
+    }
+
+    void SwapWeapon()
+    {
+        if (currentWeapon.Equals(weapon1))
+        {
+            Debug.Log(name + " has swapped to Weapon 2");
+            setWeaponVisibility(weapon2, true);
+            setWeaponVisibility(weapon1, false);
+            currentWeapon = weapon2;
+        }
+        else {
+
+            if (currentWeapon.Equals(weapon2))
+            {
+                Debug.Log(name + " has swapped to Weapon 1");
+                setWeaponVisibility(weapon2, false);
+                setWeaponVisibility(weapon1, true);
+
+                currentWeapon = weapon1;
+            }
+        }
     }
 
     // when any damage is taken lowers current health
@@ -52,7 +101,7 @@ public class Player : NetworkBehaviour
 
     public void useAmmo()
     {
-        magazineAmmo -= ammoShotCount;
+        currentWeapon.magazineAmmo -= ammoShotCount;
         Debug.Log(transform.name + " now has " + currentAmmo + " ammo.");
     }
     
@@ -85,22 +134,27 @@ public class Player : NetworkBehaviour
             Cursor.visible = (true);
             CursorLockedVar = (false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab)) { //just a temp key
+            SwapWeapon();
+        }
+
         nameText.text = this.name.ToString();
     }
 
     public void Reload()
     {
         //only reload if the magazine is not full and there is ammo
-        if (magazineAmmo < magazineSize && currentAmmo > 0)
+        if (currentWeapon.magazineAmmo < currentWeapon.magazineSize && currentAmmo > 0)
         {
             //is there enough bullets to reload mag?
-            if (currentAmmo - (magazineSize - magazineAmmo) >= 0)
+            if (currentAmmo - (currentWeapon.magazineSize - currentWeapon.magazineAmmo) >= 0)
             {
-                currentAmmo -= magazineSize - magazineAmmo;
-                magazineAmmo = magazineSize;
+                currentAmmo -= currentWeapon.magazineSize - currentWeapon.magazineAmmo;
+                currentWeapon.magazineAmmo = currentWeapon.magazineSize;
             } else //not enough bullets to reload mag fully
-            { 
-                magazineAmmo += currentAmmo;
+            {
+                currentWeapon.magazineAmmo += currentAmmo;
                 currentAmmo = 0;
             }
         }

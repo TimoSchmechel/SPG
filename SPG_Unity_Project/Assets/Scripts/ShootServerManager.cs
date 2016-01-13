@@ -8,13 +8,13 @@ public class ShootServerManager : NetworkBehaviour
     [SerializeField]
     private GameObject bullet;
 
-    public Transform gunShooter;
-    public Transform endShooter;
+    public Transform gunShooter; //maybe also grab gunshooter dynamically from player.currentWeapon
+    private Transform endShooter;
 
-    public void Shoot(int shooterTeam)
+    public void Shoot(string shooter)
     {
         if (isClient)//checks if this code is running on the client
-            CmdFire(shooterTeam);
+            CmdFire(shooter);
 
     }
 
@@ -25,9 +25,12 @@ public class ShootServerManager : NetworkBehaviour
 	 **/
 
     [Command]
-    void CmdFire(int shooterTeam)
+    void CmdFire(string shooterID)
     {
-        RpcFire(endShooter.position, gunShooter.rotation, shooterTeam);
+        Player shooter = GameManager.GetPlayer(shooterID);
+        endShooter = shooter.currentWeapon.gameObject.transform.FindChild("BarrelEnd").transform; //use barrelEnd object which is unique for each weapon to make sure bullets spawn at the approapriate position
+
+        RpcFire(endShooter.position, gunShooter.rotation, shooter.GetComponent<Teams>().team); 
         //RpcUpdateSlider(this.gameObject);
 
     }

@@ -1718,6 +1718,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 15194a78a46cf5c4b8b5a1f5a21758de, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &1563762083
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000031175205
+      objectReference: {fileID: 0}
+    - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.16495335
+      objectReference: {fileID: 0}
+    - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 8.7674995e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9863014
+      objectReference: {fileID: 0}
+    - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1601178053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,7 +1892,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 187802, guid: 7d3efd0f3b7eb4441b82997771bf1bdc, type: 2}
+  m_PlayerPrefab: {fileID: 187802, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
   m_OfflineScene: 

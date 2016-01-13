@@ -58,10 +58,10 @@ public class PlayerShoot : NetworkBehaviour {
             crossHair.activeCrosshair.Shrink();
         }
 
-        if (Input.GetButtonDown("Fire1") && player.magazineAmmo > 0)
+        if (Input.GetButtonDown("Fire1") && player.currentWeapon.magazineAmmo > 0)
         {
             crossHair.activeCrosshair.ShootKickback();
-            SSM.Shoot(player.GetComponent<Teams>().team);
+            SSM.Shoot(player.name);
             player.useAmmo();
         }
 
@@ -70,7 +70,7 @@ public class PlayerShoot : NetworkBehaviour {
             player.Reload();
         }
 
-        ammo.text = player.magazineAmmo + " | " + player.currentAmmo;
+        ammo.text = player.currentWeapon.magazineAmmo + " | " + player.currentAmmo;
 
 
 
@@ -78,7 +78,7 @@ public class PlayerShoot : NetworkBehaviour {
 
         Vector3 lazerFwd = gunShooter.transform.forward;
         //RaycastHit hit;
-        Debug.DrawRay(gunScope.transform.position, lazerFwd * 100, Color.green);
+      //  Debug.DrawRay(gunScope.transform.position, lazerFwd * 100, Color.green);
         //Gizmos.DrawRay(gunShooter.transform.position, lazerFwd * 100);
     }
 

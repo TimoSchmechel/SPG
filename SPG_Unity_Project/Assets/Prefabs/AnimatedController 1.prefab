@@ -2484,6 +2484,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  currentWeapon: {fileID: 0}
+  weapon1: {fileID: 0}
+  weapon2: {fileID: 0}
+  weaponHolder: {fileID: 0}
   currentHealth: 100
   currentAmmo: 99
   nameText: {fileID: 0}
@@ -2621,7 +2625,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 119298, guid: 0a4e27ccc28c2e44d86cfcc973ba64e7, type: 2}
   gunShooter: {fileID: 454864}
-  endShooter: {fileID: 0}
 --- !u!114 &11455262
 MonoBehaviour:
   m_ObjectHideFlags: 1
