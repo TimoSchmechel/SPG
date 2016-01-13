@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -18,6 +19,8 @@ public class Player : NetworkBehaviour
 
     //[SyncVar]
     public int currentAmmo;
+    public int magazineAmmo;
+    public int magazineSize = 10;
 
     public TextMesh nameText;
 
@@ -33,6 +36,12 @@ public class Player : NetworkBehaviour
         //nameText.text = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
     }
 
+    void Start()
+    {
+        currentAmmo = maxAmmo;
+        magazineAmmo = magazineSize;
+    }
+
     // when any damage is taken lowers current health
     public void TakeDamage(int _amount)
     {
@@ -43,7 +52,7 @@ public class Player : NetworkBehaviour
 
     public void useAmmo()
     {
-        currentAmmo -= ammoShotCount;
+        magazineAmmo -= ammoShotCount;
         Debug.Log(transform.name + " now has " + currentAmmo + " ammo.");
     }
     
@@ -54,10 +63,12 @@ public class Player : NetworkBehaviour
         currentAmmo = maxAmmo;
     }
 
+    /*
     public void setMaxAmmo(Slider ammo)
     {
         ammo.maxValue = maxAmmo;
     }
+    */
 
     void Update()
     {
@@ -77,4 +88,21 @@ public class Player : NetworkBehaviour
         nameText.text = this.name.ToString();
     }
 
+    public void Reload()
+    {
+        //only reload if the magazine is not full and there is ammo
+        if (magazineAmmo < magazineSize && currentAmmo > 0)
+        {
+            //is there enough bullets to reload mag?
+            if (currentAmmo - (magazineSize - magazineAmmo) >= 0)
+            {
+                currentAmmo -= magazineSize - magazineAmmo;
+                magazineAmmo = magazineSize;
+            } else //not enough bullets to reload mag fully
+            { 
+                magazineAmmo += currentAmmo;
+                currentAmmo = 0;
+            }
+        }
+    }
 }

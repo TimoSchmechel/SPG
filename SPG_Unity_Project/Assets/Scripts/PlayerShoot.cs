@@ -17,7 +17,7 @@ public class PlayerShoot : NetworkBehaviour {
 
     private ShootServerManager SSM; // this handles the shooting across all the servers
 
-    public Slider ammo;
+    public Text ammo;
 
     public GameObject gunShooter;
     public GameObject gunScope;
@@ -40,8 +40,8 @@ public class PlayerShoot : NetworkBehaviour {
             this.enabled = false;
         }
 
-        ammo = GameObject.Find("Canvas/AmmoHUD").GetComponent<Slider>();
-        player.setMaxAmmo(ammo);
+        ammo = GameObject.Find("Canvas/Ammo Counter").GetComponent<Text>();
+        //player.setMaxAmmo(ammo);
     }
 
 
@@ -58,13 +58,21 @@ public class PlayerShoot : NetworkBehaviour {
             crossHair.activeCrosshair.Shrink();
         }
 
-        if (Input.GetButtonDown("Fire1") && player.currentAmmo >0)
+        if (Input.GetButtonDown("Fire1") && player.magazineAmmo > 0)
         {
             crossHair.activeCrosshair.ShootKickback();
             SSM.Shoot(player.GetComponent<Teams>().team);
             player.useAmmo();
         }
-        ammo.value = player.currentAmmo;
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.Reload();
+        }
+
+        ammo.text = player.magazineAmmo + " | " + player.currentAmmo;
+
+
 
         //Gizmos.color = Color.green;
 
