@@ -17,6 +17,8 @@ public class Player : NetworkBehaviour
     public Weapon weapon2;
     public Transform weaponHolder;
 
+    public bool canReload;
+
 
     //Current Health synced across servers
     [SyncVar]
@@ -38,6 +40,7 @@ public class Player : NetworkBehaviour
         CursorLockedVar = (true);
 
         SetDefaults();
+        canReload = false;
         //nameText.text = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
     }
 
@@ -147,6 +150,12 @@ public class Player : NetworkBehaviour
         //only reload if the magazine is not full and there is ammo
         if (currentWeapon.magazineAmmo < currentWeapon.magazineSize && currentAmmo > 0)
         {
+            //
+            canReload = true; //this is for animation purposes
+            GetComponent<AnimationController>().reloader();
+            //
+
+
             //is there enough bullets to reload mag?
             if (currentAmmo - (currentWeapon.magazineSize - currentWeapon.magazineAmmo) >= 0)
             {

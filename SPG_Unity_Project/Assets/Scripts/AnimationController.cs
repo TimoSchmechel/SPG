@@ -11,17 +11,38 @@ public class AnimationController : MonoBehaviour {
     private bool hasSwitched;
     public bool readyToShoot;
 
-	// Use this for initialization
-	void Start () {
+    public bool isRealoding;
+
+    // Use this for initialization
+    void Start() {
 
         myAnimator = GetComponent<Animator>();
-	
-	}
-	
+        isRealoding = false;
+    }
+
+    void setMask()
+    {
+        //if ((myAnimator.GetInteger("CurrentAction") == 0 || myAnimator.GetBool("Shooting") || myAnimator.GetBool("Jumping") || myAnimator.GetBool("TLeft") || myAnimator.GetBool("TRight")
+        //|| (myAnimator.GetFloat("VSpeed") == 1 || myAnimator.GetFloat("VSpeed") == -1) || (myAnimator.GetFloat("HSpeed") == 1 || myAnimator.GetFloat("HSpeed") == -1)))
+        if (!(myAnimator.GetFloat("VSpeed") == 0 && myAnimator.GetFloat("HSpeed") == 0 && myAnimator.GetInteger("CurrentAction") == 0))
+        {
+            myAnimator.SetBool("isIdle", false);
+            //myAnimator.SetLayerWeight(0, 1f);
+            myAnimator.SetLayerWeight(1, 0f);
+        }
+        else 
+        {
+            myAnimator.SetBool("isIdle", true);
+            myAnimator.SetLayerWeight(1, 1f);
+            //myAnimator.SetLayerWeight(0, 0f);
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
 
 
+        setMask();
 
         // sets forward running
         myAnimator.SetFloat("VSpeed", Input.GetAxis("Vertical"));
@@ -88,22 +109,7 @@ public class AnimationController : MonoBehaviour {
 
 
 
-        //if ((myAnimator.GetBool("Shooting") || myAnimator.GetBool("Jumping") || myAnimator.GetBool("TLeft") || myAnimator.GetBool("TRight")
-        //|| (myAnimator.GetFloat("VSpeed") == 1 || myAnimator.GetFloat("VSpeed") == -1) || (myAnimator.GetFloat("HSpeed") == 1 || myAnimator.GetFloat("HSpeed") == -1)))
-        //if (Input.GetKey("3"))
-        if(!(myAnimator.GetFloat("VSpeed") == 0 && myAnimator.GetFloat("HSpeed") == 0))
-        {
-            myAnimator.SetBool("isIdle", false);
-            myAnimator.SetLayerWeight(0, 1f);
-            myAnimator.SetLayerWeight(1, 0f);
-        }
-        else
-        {
-            myAnimator.SetBool("isIdle", true);
-            myAnimator.SetLayerWeight(1, 1f);
-            myAnimator.SetLayerWeight(0, 0f);
-
-        }
+ 
 
         /*if(Input.GetButtonDown("Fire1") && myAnimator.GetBool("Shooting") == false)
         {
@@ -148,6 +154,20 @@ public class AnimationController : MonoBehaviour {
     void StopJumping()
     {
         myAnimator.SetBool("Jumping", false);
+    }
+
+    void StopReload()
+    {
+        myAnimator.SetInteger("CurrentAction", 0);
+        isRealoding = false;
+    }
+
+    public void reloader()
+    {
+        myAnimator.SetInteger("CurrentAction", 3);
+        isRealoding = true;
+        Invoke("StopReload", 3f);
+        GetComponent<Player>().canReload = false;
     }
     
 }

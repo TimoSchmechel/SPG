@@ -58,7 +58,7 @@ public class PlayerShoot : NetworkBehaviour {
             crossHair.activeCrosshair.Shrink();
         }
 
-        if (Input.GetButtonDown("Fire1") && player.currentWeapon.magazineAmmo > 0)
+        if (Input.GetButtonDown("Fire1") && player.currentWeapon.magazineAmmo > 0 && GetComponent<AnimationController>().isRealoding == false)
         {
             crossHair.activeCrosshair.ShootKickback();
             SSM.Shoot(player.name);
