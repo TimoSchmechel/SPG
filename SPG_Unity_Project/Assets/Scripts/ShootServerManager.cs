@@ -7,6 +7,7 @@ public class ShootServerManager : NetworkBehaviour
     
     [SerializeField]
     private GameObject bullet;
+    public bool teamDeathmatch = false;
 
     public Transform gunShooter; //maybe also grab gunshooter dynamically from player.currentWeapon
     private Transform endShooter;
@@ -87,10 +88,28 @@ public class ShootServerManager : NetworkBehaviour
     void RpcDamageCalculator(string playerID, int Damage, int shooterTeam)
     {
         Player player = GameManager.GetPlayer(playerID);
-
-        if (player.GetComponent<Teams>().team != shooterTeam)
+        if (teamDeathmatch)
         {
+            if (player.GetComponent<Teams>().team != shooterTeam)
+            {
 
+                print(playerID + " Got Hit!! They took " + Damage + " damage");
+                player.TakeDamage(Damage);
+
+                if (player.currentHealth <= 0)
+                {
+                    //RpcCollision();
+                    CmdCollision(this.gameObject);
+                    player.currentHealth = 100;
+                }
+            }
+            else
+            {
+                Debug.Log("FRIENDLY FIRE");
+            }
+        }
+        else
+        {
             print(playerID + " Got Hit!! They took " + Damage + " damage");
             player.TakeDamage(Damage);
 
@@ -100,9 +119,6 @@ public class ShootServerManager : NetworkBehaviour
                 CmdCollision(this.gameObject);
                 player.currentHealth = 100;
             }
-        } else
-        {
-            Debug.Log("FRIENDLY FIRE");
         }
     }
 
