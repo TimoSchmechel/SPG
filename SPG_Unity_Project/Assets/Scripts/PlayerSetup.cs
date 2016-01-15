@@ -15,6 +15,7 @@ public class PlayerSetup : NetworkBehaviour {
     private string playerID;
     private string nameString;
     private PlayerSetup PS;
+    private string instanceName;
 
 
 
@@ -34,7 +35,8 @@ public class PlayerSetup : NetworkBehaviour {
 			}
 		}
 
-        nameString = GlobalScript.instanceName;
+        //nameString = GlobalScript.instanceName;
+        nameString = instanceName;
         Cmd_UpdateNameServer(playerID, nameString);
 
 	}
@@ -78,7 +80,10 @@ public class PlayerSetup : NetworkBehaviour {
     // set player name
     public override void OnStartClient()
     {
-        GlobalScript.instanceName = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
+        //GlobalScript.instanceName = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
+        instanceName = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
+        //PlayerPrefs.DeleteAll();
+        //PlayerPrefs.Save();
         base.OnStartClient();
 
         string _netID = GetComponent<NetworkIdentity>().netId.ToString();
