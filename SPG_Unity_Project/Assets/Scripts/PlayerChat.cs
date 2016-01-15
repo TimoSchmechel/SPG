@@ -9,15 +9,18 @@ public class PlayerChat : NetworkBehaviour {
     public ChatControl chat;
     public GameObject input;
     public EventSystem eventSystem;
-	// Use this for initialization
-	public override void OnStartClient () {
+    private Animator myAnimator;
+
+    // Use this for initialization
+    public override void OnStartClient () {
         input = GameObject.Find("Canvas/Chat/Input");
         chat = GameObject.Find("Canvas/Chat").GetComponent<ChatControl>();
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         input.GetComponent<InputField>().Select();
         input.GetComponent<InputField>().OnPointerClick(new PointerEventData(EventSystem.current));
         input.SetActive(false);
-	}
+        myAnimator = GetComponent<Animator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,6 +32,7 @@ public class PlayerChat : NetworkBehaviour {
                 if(active == true)
                 {
                     active = false;
+                    GetComponent<CharacterController>().enabled = true;
                     gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
                     gameObject.GetComponent<PlayerShoot>().enabled = true;
                     gameObject.GetComponent<AnimationController>().enabled = true;
@@ -37,14 +41,18 @@ public class PlayerChat : NetworkBehaviour {
                     eventSystem.SetSelectedGameObject(null);
                     input.SetActive(false);
                 }
-                else
+                else if (gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().m_CharacterController.isGrounded)
                 {
                     active = true;
+                    GetComponent<CharacterController>().enabled = false;
                     gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
                     gameObject.GetComponent<PlayerShoot>().enabled = false;
                     gameObject.GetComponent<AnimationController>().enabled = false;
                     input.SetActive(true);
                     eventSystem.SetSelectedGameObject(input);
+
+                    myAnimator.SetFloat("VSpeed", 0f);
+                    myAnimator.SetFloat("HSpeed", 0f);
                 }
             }
         }
