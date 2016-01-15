@@ -168,13 +168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1000
   damage: 25
-  shooterTeam: 2
-  splatt: {fileID: 133584, guid: b608aa33b01ca0a4eb15d880ea1af7ee, type: 2}
-  splatts:
-  - {fileID: 133584, guid: 8db686457a34fcb45b235379014494db, type: 2}
-  - {fileID: 133584, guid: b608aa33b01ca0a4eb15d880ea1af7ee, type: 2}
-  - {fileID: 133584, guid: 5c2712bad99f69546bfdde04329fa102, type: 2}
-  - {fileID: 133584, guid: 2e4ad1e32658a4f4c9f0baefbeb31a1d, type: 2}
+  shooter: {fileID: 0}
+  splatter: {fileID: 133584, guid: 8db686457a34fcb45b235379014494db, type: 2}
 --- !u!135 &13587460
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -234,6 +229,10 @@ Prefab:
       propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: splatter
+      value: 
+      objectReference: {fileID: 133584, guid: 8db686457a34fcb45b235379014494db, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119298}

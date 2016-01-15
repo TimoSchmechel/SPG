@@ -12,10 +12,10 @@ public class ShootServerManager : NetworkBehaviour
     public Transform gunShooter; //maybe also grab gunshooter dynamically from player.currentWeapon
     private Transform endShooter;
 
-    public void Shoot(string shooter)
+    public void Shoot(string shooterID, Vector3 lookPos)
     {
         if (isClient)//checks if this code is running on the client
-            CmdFire(shooter);
+            CmdFire(shooterID, lookPos);
 
     }
 
@@ -26,13 +26,12 @@ public class ShootServerManager : NetworkBehaviour
 	 **/
 
     [Command]
-    void CmdFire(string shooterID)
+    void CmdFire(string shooterID, Vector3 lookPos)
     {
         Player shooter = GameManager.GetPlayer(shooterID);
         endShooter = shooter.currentWeapon.gameObject.transform.FindChild("BarrelEnd").transform; //use barrelEnd object which is unique for each weapon to make sure bullets spawn at the approapriate position
 
-        RpcFire(endShooter.position, gunShooter.rotation, shooter.GetComponent<Teams>().team); 
-        //RpcUpdateSlider(this.gameObject);
+        RpcFire(endShooter.position, gunShooter.rotation, shooterID, lookPos); 
 
     }
 
@@ -42,10 +41,12 @@ public class ShootServerManager : NetworkBehaviour
     **/
 
     [ClientRpc]
-    void RpcFire(Vector3 position, Quaternion rotation, int shooterTeam)
+    void RpcFire(Vector3 position, Quaternion rotation, string shooterID, Vector3 lookPos)
     {
-        bullet.GetComponent<BulletManager>().shooterTeam = shooterTeam;
-        GameObject.Instantiate(bullet, position, rotation);
+        GameObject tmpBullet = GameObject.Instantiate(bullet, position, rotation) as GameObject;
+
+        tmpBullet.GetComponent<BulletManager>().shooter = GameManager.GetPlayer(shooterID);
+        tmpBullet.transform.LookAt(lookPos);
     }
 
     /*[ClientRpc]
@@ -61,7 +62,7 @@ public class ShootServerManager : NetworkBehaviour
     {
         if (collision.gameObject.tag == "Paintball")
         {
-            RpcDamageCalculator(gameObject.name, bullet.GetComponent<BulletManager>().damage, bullet.GetComponent<BulletManager>().shooterTeam);
+            RpcDamageCalculator(gameObject.name, bullet.GetComponent<BulletManager>().damage, bullet.GetComponent<BulletManager>().shooter.GetComponent<Teams>().team);
         }
     }
 

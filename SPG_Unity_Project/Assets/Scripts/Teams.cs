@@ -4,21 +4,27 @@ using System.Collections;
 
 public class Teams : NetworkBehaviour {
 	int teamVal;
+
 	[SyncVar]
 	public int team;
-	// Use this for initialization
+
+    // Color[] teamColours = { new Color(255, 0, 0), new Color(0, 255, 0), new Color(0, 0, 255) };
+
+    public Color colour;
+
 	void Start () {
 		teamVal = int.Parse(GetComponent<NetworkIdentity> ().netId.ToString ());
+
 		if (isLocalPlayer) {
 			CmdAssignTeam ();
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
+        colour = new Color(Random.Range(0, 255)/255f, Random.Range(0, 255)/255f, Random.Range(0, 255)/255f); //have to be in range 0 - 1 for some reason????
+
+       // colour = Random.ColorHSV(); --> these random colours look shit
+
+    }
+	
 	[Command]
 	void CmdAssignTeam(){
 		RpcAssignTeam ();
@@ -26,7 +32,7 @@ public class Teams : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcAssignTeam(){
-
+        
 		if (teamVal % 2 == 0) {
 			team = 1;
 		} else {

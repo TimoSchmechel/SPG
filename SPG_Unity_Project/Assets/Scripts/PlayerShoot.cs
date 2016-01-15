@@ -60,8 +60,15 @@ public class PlayerShoot : NetworkBehaviour {
 
         if (Input.GetButtonDown("Fire1") && player.currentWeapon.magazineAmmo > 0 && GetComponent<AnimationController>().isRealoding == false)
         {
+
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth/2, Camera.main.pixelHeight/2, 0 ));
+            Vector3 lookPos;
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit);
+            lookPos = hit.point;
+
             crossHair.activeCrosshair.ShootKickback();
-            SSM.Shoot(player.name);
+            SSM.Shoot(player.name, lookPos);
             player.useAmmo();
         }
 

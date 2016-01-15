@@ -7,20 +7,15 @@ public class BulletManager : MonoBehaviour {
     public float speed = 1000f;
     public int damage = 25;
 
-    public int shooterTeam;
+    public Player shooter;
 
-    public GameObject splatt;
-    public GameObject[] splatts = new GameObject[4];
+    public GameObject splatter;
 
     // Makes bullet go foward
     void Start () {
         GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed);
+        GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
     }
-
-    // Update is called once per frame
-    void Update () {
-	
-	}
 
     //Destroy when it hits anything. 
     void OnCollisionEnter(Collision collision)
@@ -35,13 +30,11 @@ public class BulletManager : MonoBehaviour {
             {
                 if (Physics.Raycast(this.transform.position, fwd, out hit, 100))
                 {
-                    int splattNumber = UnityEngine.Random.Range(0, splatts.Length);
-                    Instantiate(splatts[splattNumber], hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                    GameObject tmpSplatter = Instantiate(splatter, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject;
+                    tmpSplatter.transform.Find("Splatter").GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
                 }
             }
         }
-
-
         Destroy(this.gameObject);
 
     }
