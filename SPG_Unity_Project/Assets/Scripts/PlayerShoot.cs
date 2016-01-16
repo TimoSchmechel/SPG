@@ -24,7 +24,7 @@ public class PlayerShoot : NetworkBehaviour {
 
     private Player player;
 
-    private CrosshairManager crossHair;
+    private CrosshairManager crossHairManager;
 
 
     void Start()
@@ -32,7 +32,7 @@ public class PlayerShoot : NetworkBehaviour {
         player = GetComponent<Player>();
         SSM = GetComponent<ShootServerManager>();
 
-        crossHair = GameObject.FindGameObjectWithTag("CrosshairManager").GetComponent<CrosshairManager>();
+        crossHairManager = GameObject.FindGameObjectWithTag("CrosshairManager").GetComponent<CrosshairManager>();
 
         if (cam == null) // if no camera error
         {
@@ -50,24 +50,27 @@ public class PlayerShoot : NetworkBehaviour {
 
         if (Input.GetButtonDown("Fire2"))
         {
-            crossHair.activeCrosshair.Expand();
+            crossHairManager.activeCrosshair.Shrink();
         }
 
         if (Input.GetButtonUp("Fire2"))
         {
-            crossHair.activeCrosshair.Shrink();
+            crossHairManager.activeCrosshair.Expand();
         }
 
         if (Input.GetButtonDown("Fire1") && player.currentWeapon.magazineAmmo > 0 && GetComponent<AnimationController>().isRealoding == false)
         {
+            Vector3 randomAimPoint = Random.insideUnitCircle * crossHairManager.activeCrosshair.getCurrentSpread();
 
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth/2, Camera.main.pixelHeight/2, 0 ));
+            randomAimPoint *= player.currentWeapon.getNormalizedAccuracy();
+
+            Ray ray = Camera.main.ScreenPointToRay(crossHairManager.gameObject.transform.position + randomAimPoint);
             Vector3 lookPos;
             RaycastHit hit;
             Physics.Raycast(ray, out hit);
             lookPos = hit.point;
 
-            crossHair.activeCrosshair.ShootKickback();
+            crossHairManager.activeCrosshair.ShootKickback();
             SSM.Shoot(player.name, lookPos);
             player.useAmmo();
         }

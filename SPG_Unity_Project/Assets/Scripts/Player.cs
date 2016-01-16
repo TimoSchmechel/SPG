@@ -26,8 +26,6 @@ public class Player : NetworkBehaviour
 
     //[SyncVar]
     public int currentAmmo;
-   // public int magazineAmmo;
-   // public int magazineSize = 10;
 
     public TextMesh nameText;
 
@@ -60,6 +58,8 @@ public class Player : NetworkBehaviour
         currentWeapon = weapon1;
 
         setWeaponVisibility(weapon2, false);
+
+       
     }
 
     //helper function to clean code up
@@ -143,6 +143,7 @@ public class Player : NetworkBehaviour
         }
 
         nameText.text = this.name.ToString();
+        nameText.GetComponent<TextMesh>().color = this.gameObject.GetComponent<Teams>().colour;
     }
 
     public void Reload()

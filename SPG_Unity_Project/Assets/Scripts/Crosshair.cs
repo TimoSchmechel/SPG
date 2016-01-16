@@ -13,6 +13,9 @@ public class Crosshair : MonoBehaviour {
     public float spreadSpeed = 0.5f;
 
     public bool allowSpread = true;
+    //
+    private bool reachedTarget = true;
+    private bool shrinking = false;
 
     private float currentSpread = 0;
     private float targetSpread = 0;
@@ -34,28 +37,33 @@ public class Crosshair : MonoBehaviour {
     {
         if (allowSpread)
         {
-   
             if (currentSpread != targetSpread)
             {
                 Spread();
-            }
+            } 
 
         }
     }
 
-    public void Expand()
+    public void Shrink()
     {
+        reachedTarget = false;
+        shrinking = true;
         targetSpread = aimingSpread;
     }
 
-    public void Shrink()
+    public void Expand()
     {
+        reachedTarget = false;
+        shrinking = false;
         targetSpread = defaultSpread;
     }
 
     public void ShootKickback()
     {
-        currentSpread = (currentSpread + kickbackSpread > maxSpread ? maxSpread : currentSpread + kickbackSpread); ;
+        reachedTarget = false;
+        shrinking = true;
+        currentSpread = (currentSpread + kickbackSpread > maxSpread ? maxSpread : currentSpread + kickbackSpread); 
     }
 
     public void Spread()
@@ -68,17 +76,39 @@ public class Crosshair : MonoBehaviour {
 
     public void MovePart(Image part)
     {
-        if (targetSpread < currentSpread)
+        if (!reachedTarget)
         {
-            currentSpread -= spreadSpeed * Time.deltaTime;
-        } else if(targetSpread > currentSpread)
-        {
-            currentSpread += spreadSpeed * Time.deltaTime;
-        }
-       
-        part.rectTransform.anchoredPosition = part.rectTransform.up * currentSpread;
+            if (shrinking)
+            {
+                if (targetSpread < currentSpread)
+                {
+                    currentSpread -= spreadSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    reachedTarget = true;
+                }
+            }
 
-      //  if(currentSpread + kickbackSpread)
+            if (!shrinking)
+            {
+                if (targetSpread > currentSpread)
+                {
+                    currentSpread += spreadSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    reachedTarget = true;
+                }
+            }
+        }
+
+        part.rectTransform.anchoredPosition = part.rectTransform.up * currentSpread;
+    }
+
+    public float getCurrentSpread()
+    {
+        return currentSpread;
     }
 
     public void Hide()

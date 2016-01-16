@@ -31,6 +31,7 @@ public class BulletManager : MonoBehaviour {
                 if (Physics.Raycast(this.transform.position, fwd, out hit, 100))
                 {
                     GameObject tmpSplatter = Instantiate(splatter, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject;
+                    tmpSplatter.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(0, 360), 0));
                     tmpSplatter.transform.Find("Splatter").GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
                 }
             }

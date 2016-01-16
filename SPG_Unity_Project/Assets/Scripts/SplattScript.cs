@@ -6,6 +6,8 @@ public class SplattScript : MonoBehaviour {
     private float killTimer = 0f;
     public float killTimeCap = 6000f;
 
+
+
 	void Update () {
         killTimer += Time.deltaTime;
         if (killTimer >= killTimeCap)
