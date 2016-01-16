@@ -62,7 +62,18 @@ public class ShootServerManager : NetworkBehaviour
     {
         if (collision.gameObject.tag == "Paintball")
         {
-            RpcDamageCalculator(gameObject.name, bullet.GetComponent<BulletManager>().damage, bullet.GetComponent<BulletManager>().shooter.GetComponent<Teams>().team);
+
+            BulletManager b = collision.gameObject.GetComponent<BulletManager>();
+
+            if(!b.damageSwitch)
+            { 
+                //calculate the damage to the player
+                RpcDamageCalculator(gameObject.name, b.GetComponent<BulletManager>().damage, b.GetComponent<BulletManager>().shooter.GetComponent<Teams>().team);
+
+                //and make sure damage doesn't get counted twice.
+                b.damageSwitch = true;
+            }
+
         }
     }
 

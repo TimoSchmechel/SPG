@@ -6,6 +6,7 @@ public class BulletManager : MonoBehaviour {
 
     public float speed = 1000f;
     public int damage = 25;
+    public bool damageSwitch = false;//the little switch we toggle to determine whether its delivered its damage or not...
 
     public Player shooter;
 
@@ -36,6 +37,7 @@ public class BulletManager : MonoBehaviour {
                 }
             }
         }
+
         Destroy(this.gameObject);
 
     }
