@@ -61,7 +61,19 @@ public class AnimationController : MonoBehaviour {
             StopJumping();
         }
 
-        if(Input.GetKey("q"))
+        if (Input.GetButtonDown("Flip"))
+        {
+            myAnimator.SetBool("Flipping", true);
+            isRealoding = true; //stops player shooting 
+        }
+
+        if (Input.GetButtonUp("Flip"))
+        {
+            StopFliping();
+            isRealoding = false;
+        }
+
+        if (Input.GetKey("q"))
         {
             if((Input.GetAxis("Vertical") == 0f) && (Input.GetAxis("Horizontal") == 0f))
             {
@@ -107,32 +119,6 @@ public class AnimationController : MonoBehaviour {
             }
         }
 
-
-
- 
-
-        /*if(Input.GetButtonDown("Fire1") && myAnimator.GetBool("Shooting") == false)
-        {
-            myAnimator.SetInteger("CurrentAction", 0);
-
-            if(!hasSwitched)
-            {
-                //gun1.SetActive(false);
-                //gun2.SetActive(true);
-                hasSwitched = true;
-            }
-            myAnimator.SetBool("Shooting", true);
-            myAnimator.SetFloat("HSpeed", 0);
-            //Invoke("readyToShootOn", 0.275f);
-        }
-
-        if (Input.GetButtonUp("Fire1") && myAnimator.GetBool("Shooting") == true)
-        {
-            if (hasSwitched)
-            {
-                Invoke("returnToGunPose", 0.275f);
-            }
-        }*/
     }
 
 
@@ -154,6 +140,11 @@ public class AnimationController : MonoBehaviour {
     void StopJumping()
     {
         myAnimator.SetBool("Jumping", false);
+    }
+
+    void StopFliping()
+    {
+        myAnimator.SetBool("Flipping", false);
     }
 
     void StopReload()
