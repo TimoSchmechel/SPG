@@ -512,23 +512,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22488934, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22488934, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22463952, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22463952, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22463952, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
@@ -1738,11 +1738,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.000000031175205
+      value: 3.11752046e-08
       objectReference: {fileID: 0}
     - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.16495335
+      value: .164953351
       objectReference: {fileID: 0}
     - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
       propertyPath: m_LocalRotation.z
@@ -1750,7 +1750,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9863014
+      value: .986301422
       objectReference: {fileID: 0}
     - target: {fileID: 469380, guid: 937482c56e48e164387d1bde7feb9137, type: 2}
       propertyPath: m_RootOrder

@@ -12,6 +12,7 @@ public class AnimationController : MonoBehaviour {
     public bool readyToShoot;
 
     public bool isRealoding;
+    public int turnValue;
 
     // Use this for initialization
     void Start() {
@@ -30,7 +31,7 @@ public class AnimationController : MonoBehaviour {
             //myAnimator.SetLayerWeight(0, 1f);
             myAnimator.SetLayerWeight(1, 0f);
         }
-        else 
+        else
         {
             myAnimator.SetBool("isIdle", true);
             myAnimator.SetLayerWeight(1, 1f);
@@ -38,25 +39,25 @@ public class AnimationController : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update() {
 
 
         setMask();
 
         // sets forward running
         myAnimator.SetFloat("VSpeed", Input.GetAxis("Vertical"));
-        if(myAnimator.GetBool("Shooting") == false)
+        if (myAnimator.GetBool("Shooting") == false)
             myAnimator.SetFloat("HSpeed", Input.GetAxis("Horizontal"));
 
-       if(Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             myAnimator.SetBool("Jumping", true);
             //GetComponent<Rigidbody>().AddForce(0f, 0f, 1000f);
             //Invoke("StopJumping", 0.1f);
         }
 
-        if(Input.GetButtonUp("Jump"))
+        if (Input.GetButtonUp("Jump"))
         {
             StopJumping();
         }
@@ -73,30 +74,38 @@ public class AnimationController : MonoBehaviour {
             isRealoding = false;
         }
 
-        if (Input.GetKey("q"))
+        if (Input.GetKey("q") || turnValue == -1 )
         {
             if((Input.GetAxis("Vertical") == 0f) && (Input.GetAxis("Horizontal") == 0f))
             {
                 myAnimator.SetBool("TLeft", true);
+                myAnimator.SetLayerWeight(2, 1f);
+                print("left " + turnValue);
             }
         }else
         {
             myAnimator.SetBool("TLeft", false);
+            if(turnValue != 1)
+                myAnimator.SetLayerWeight(2, 0f);
         }
 
-        if (Input.GetKey("e"))
+        if (Input.GetKey("e") || turnValue == 1)
         {
             if ((Input.GetAxis("Vertical") == 0f) && (Input.GetAxis("Horizontal") == 0f))
             {
                 myAnimator.SetBool("TRight", true);
+                myAnimator.SetLayerWeight(2, 1f);
+                print("right "+turnValue);
             }
         }
         else
         {
             myAnimator.SetBool("TRight", false);
+            if (turnValue != -1)
+                myAnimator.SetLayerWeight(2, 0f);
         }
 
-        if(Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("1"))
         {
             if(myAnimator.GetInteger("CurrentAction") == 0)
             {

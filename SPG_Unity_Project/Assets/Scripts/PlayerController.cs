@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour {
     private PlayerMotor motor;
     private ConfigurableJoint joint;
 
+    private AnimationController AC;
+
     //Cancel or apply movement rotation and thrust
     public bool canManageMovement;
     public bool canManageCamera;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		motor = GetComponent<PlayerMotor> ();
         joint = GetComponent<ConfigurableJoint>();
+        AC = GetComponent<AnimationController>();
 
         setJointSetting(jointSpring); 
 	}
@@ -63,6 +66,17 @@ public class PlayerController : MonoBehaviour {
 		float yRot = Input.GetAxisRaw("Mouse X");
 
 		Vector3 rotation = new Vector3 (0f, yRot, 0f) * lookSensitivity;
+        if(yRot >0)
+        {
+            AC.turnValue = 1;
+        }else if(yRot < 0)
+        {
+            AC.turnValue = -1;
+        }
+        else if(yRot == 0)
+        {
+            AC.turnValue = 0;
+        }
 
 		//Apply rotation
         if(canManageCamera)

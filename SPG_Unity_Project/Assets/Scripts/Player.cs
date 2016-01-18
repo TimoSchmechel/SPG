@@ -153,7 +153,7 @@ public class Player : NetworkBehaviour
         }
 
         nameText.text = this.name.ToString();
-        nameText.GetComponent<TextMesh>().color = this.gameObject.GetComponent<Teams>().colour;
+        //nameText.GetComponent<TextMesh>().color = this.gameObject.GetComponent<Teams>().colour; //sets player color
     }
 
     public void Reload()
