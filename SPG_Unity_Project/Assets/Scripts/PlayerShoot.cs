@@ -26,6 +26,8 @@ public class PlayerShoot : NetworkBehaviour {
 
     private CrosshairManager crossHairManager;
 
+    public bool canShoot = true;
+
 
     void Start()
     {
@@ -58,7 +60,7 @@ public class PlayerShoot : NetworkBehaviour {
             crossHairManager.activeCrosshair.Expand();
         }
 
-        if (Input.GetButtonDown("Fire1") && player.currentWeapon.magazineAmmo > 0 && GetComponent<AnimationController>().isRealoding == false)
+        if (Input.GetButtonDown("Fire1") && player.currentWeapon.magazineAmmo > 0 && canShoot)
         {
             Vector3 randomAimPoint = Random.insideUnitCircle * crossHairManager.activeCrosshair.getCurrentSpread();
 
@@ -80,13 +82,14 @@ public class PlayerShoot : NetworkBehaviour {
             player.Reload();
         }
 
+        //updates the onscreen ammo counter
         ammo.text = player.currentWeapon.magazineAmmo + " | " + player.currentAmmo;
 
 
 
         //Gizmos.color = Color.green;
 
-        Vector3 lazerFwd = gunShooter.transform.forward;
+      //  Vector3 lazerFwd = gunShooter.transform.forward;
         //RaycastHit hit;
       //  Debug.DrawRay(gunScope.transform.position, lazerFwd * 100, Color.green);
         //Gizmos.DrawRay(gunShooter.transform.position, lazerFwd * 100);

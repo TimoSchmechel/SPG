@@ -11,7 +11,6 @@ public class AnimationController : MonoBehaviour {
     private bool hasSwitched;
     public bool readyToShoot;
 
-    public bool isRealoding;
     public int turnValue;
     private Player player;
 
@@ -20,7 +19,7 @@ public class AnimationController : MonoBehaviour {
 
         myAnimator = GetComponent<Animator>();
         player = GetComponent<Player>();
-        isRealoding = false;
+        //isRealoding = false;
     }
 
     void setMask()
@@ -67,13 +66,13 @@ public class AnimationController : MonoBehaviour {
         if (Input.GetButtonDown("Flip"))
         {
             myAnimator.SetBool("Flipping", true);
-            isRealoding = true; //stops player shooting 
+            GetComponent<PlayerShoot>().canShoot = false; //stops player shooting 
         }
 
         if (Input.GetButtonUp("Flip"))
         {
             StopFliping();
-            isRealoding = false;
+            GetComponent<PlayerShoot>().canShoot = true;
         }
 
         if (Input.GetKey("q") || turnValue == -1 )
@@ -161,7 +160,6 @@ public class AnimationController : MonoBehaviour {
     void StopReload()
     {
         myAnimator.SetInteger("CurrentAction", 0);
-        isRealoding = false;
         myAnimator.SetLayerWeight(3, 0f);
         player.assignAmmo();
     }
@@ -169,9 +167,7 @@ public class AnimationController : MonoBehaviour {
     public void reloader()
     {
         myAnimator.SetInteger("CurrentAction", 3);
-        isRealoding = true;
         Invoke("StopReload", 3f);
-        GetComponent<Player>().canReload = false;
         myAnimator.SetLayerWeight(3, 1f);
     }
     
