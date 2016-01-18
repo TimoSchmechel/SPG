@@ -13,11 +13,13 @@ public class AnimationController : MonoBehaviour {
 
     public bool isRealoding;
     public int turnValue;
+    private Player player;
 
     // Use this for initialization
     void Start() {
 
         myAnimator = GetComponent<Animator>();
+        player = GetComponent<Player>();
         isRealoding = false;
     }
 
@@ -160,6 +162,8 @@ public class AnimationController : MonoBehaviour {
     {
         myAnimator.SetInteger("CurrentAction", 0);
         isRealoding = false;
+        myAnimator.SetLayerWeight(3, 0f);
+        player.assignAmmo();
     }
 
     public void reloader()
@@ -168,6 +172,7 @@ public class AnimationController : MonoBehaviour {
         isRealoding = true;
         Invoke("StopReload", 3f);
         GetComponent<Player>().canReload = false;
+        myAnimator.SetLayerWeight(3, 1f);
     }
     
 }

@@ -164,19 +164,21 @@ public class Player : NetworkBehaviour
             //
             canReload = true; //this is for animation purposes
             GetComponent<AnimationController>().reloader();
-            //
-
-
-            //is there enough bullets to reload mag?
-            if (currentAmmo - (currentWeapon.magazineSize - currentWeapon.magazineAmmo) >= 0)
-            {
-                currentAmmo -= currentWeapon.magazineSize - currentWeapon.magazineAmmo;
-                currentWeapon.magazineAmmo = currentWeapon.magazineSize;
-            } else //not enough bullets to reload mag fully
-            {
-                currentWeapon.magazineAmmo += currentAmmo;
-                currentAmmo = 0;
-            }
         }
     }
+            //
+    public void assignAmmo()
+    { 
+        //is there enough bullets to reload mag?
+        if (currentAmmo - (currentWeapon.magazineSize - currentWeapon.magazineAmmo) >= 0)
+        {
+            currentAmmo -= currentWeapon.magazineSize - currentWeapon.magazineAmmo;
+            currentWeapon.magazineAmmo = currentWeapon.magazineSize;
+        } else //not enough bullets to reload mag fully
+        {
+            currentWeapon.magazineAmmo += currentAmmo;
+            currentAmmo = 0;
+        }
+    }
+    
 }
