@@ -19,6 +19,8 @@ public class Player : NetworkBehaviour
 
     public bool canReload;
 
+    public bool isPlayerReady;
+
 
     //Current Health synced across servers
     [SyncVar]
@@ -122,9 +124,8 @@ public class Player : NetworkBehaviour
     }
     */
 
-    void Update()
+    void lockMouse()
     {
-        //toggles mouse cursor to lock and hide by pressing escape
         if (Input.GetKeyDown(KeyCode.Escape) && !CursorLockedVar)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -136,6 +137,15 @@ public class Player : NetworkBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = (true);
             CursorLockedVar = (false);
+        }
+    }
+
+    void Update()
+    {
+        //toggles mouse cursor to lock and hide by pressing escape
+       if(isPlayerReady)
+        {
+            lockMouse();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab)) { //just a temp key

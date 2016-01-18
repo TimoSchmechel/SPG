@@ -22,5 +22,8 @@ public class NameScript : MonoBehaviour
         PlayerPrefs.Save();
         PlayerPrefs.SetString(GlobalScript.ppPlayerNameKey, nameInput.text);
         PlayerPrefs.Save();
+
+        //GlobalScript.instanceName = nameInput.text;
+        //print("Name is "+GlobalScript.instanceName);
     }
 }

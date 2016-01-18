@@ -16,6 +16,7 @@ public class PlayerSetup : NetworkBehaviour {
     private string nameString;
     private PlayerSetup PS;
     private string instanceName;
+    private Player player;
 
 
 
@@ -23,6 +24,7 @@ public class PlayerSetup : NetworkBehaviour {
     void Start()
     {
         PS = this;
+        player = GetComponent<Player>();
         if (!isLocalPlayer)
         {
             DisableComponents();
@@ -33,12 +35,12 @@ public class PlayerSetup : NetworkBehaviour {
 			{
 				sceneCam.gameObject.SetActive(false);
 			}
-		}
+            player.isPlayerReady = true;
 
-        //nameString = GlobalScript.instanceName;
-        nameString = instanceName;
-        Cmd_UpdateNameServer(playerID, nameString);
-
+            //set player name
+            nameString = instanceName;
+            Cmd_UpdateNameServer(playerID, nameString);
+        }
 	}
 
 
@@ -80,10 +82,8 @@ public class PlayerSetup : NetworkBehaviour {
     // set player name
     public override void OnStartClient()
     {
-        //GlobalScript.instanceName = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
         instanceName = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
-        //PlayerPrefs.DeleteAll();
-        //PlayerPrefs.Save();
+        //instanceName = GlobalScript.instanceName;
         base.OnStartClient();
 
         string _netID = GetComponent<NetworkIdentity>().netId.ToString();
