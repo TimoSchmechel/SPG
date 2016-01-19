@@ -251,6 +251,80 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1001 &698601949
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -.00045466001
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.85660005
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -.0860330015
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1.62920685e-07
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400116, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -.539047658
+      objectReference: {fileID: 0}
+    - target: {fileID: 400116, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -.449954599
+      objectReference: {fileID: 0}
+    - target: {fileID: 400116, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: .562482238
+      objectReference: {fileID: 0}
+    - target: {fileID: 400116, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -.436557382
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.50825548
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.50825405
+      objectReference: {fileID: 0}
+    - target: {fileID: 400130, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5.50825405
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7a9442513e149474a98234f074f70814, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1dfd7c544d9ff9840ba7c265c813550b, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &776708088
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +360,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -.554779053, y: 24}
+  m_AnchoredPosition: {x: -278, y: 24}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &776708090
@@ -500,7 +574,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -.554779053, y: -45}
+  m_AnchoredPosition: {x: -278, y: -45}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &800752989
@@ -798,13 +872,13 @@ RectTransform:
   m_GameObject: {fileID: 1324933830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.16657639, y: 2.16657615, z: 2.16657615}
   m_Children: []
   m_Father: {fileID: 429105844}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: 1}
   m_AnchorMax: {x: .5, y: 1}
-  m_AnchoredPosition: {x: -.554779053, y: -24}
+  m_AnchoredPosition: {x: -276, y: -9.50134277}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: 1}
 --- !u!114 &1324933832

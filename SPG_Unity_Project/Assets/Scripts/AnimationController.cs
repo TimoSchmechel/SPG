@@ -67,13 +67,15 @@ public class AnimationController : MonoBehaviour {
         {
             myAnimator.SetBool("Flipping", true);
             GetComponent<PlayerShoot>().canShoot = false; //stops player shooting 
+            Invoke("StopFliping", 3);
+            GetComponent<PlayerShoot>().canShoot = true;
         }
 
-        if (Input.GetButtonUp("Flip"))
+        /*if (Input.GetButtonUp("Flip"))
         {
             StopFliping();
             GetComponent<PlayerShoot>().canShoot = true;
-        }
+        }*/
 
         if (Input.GetKey("q") || turnValue == -1 )
         {
