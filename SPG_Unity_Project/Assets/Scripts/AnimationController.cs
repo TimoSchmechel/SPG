@@ -83,7 +83,7 @@ public class AnimationController : MonoBehaviour {
             {
                 myAnimator.SetBool("TLeft", true);
                 myAnimator.SetLayerWeight(2, 1f);
-                print("left " + turnValue);
+              //  print("left " + turnValue);
             }
         }else
         {
@@ -98,7 +98,7 @@ public class AnimationController : MonoBehaviour {
             {
                 myAnimator.SetBool("TRight", true);
                 myAnimator.SetLayerWeight(2, 1f);
-                print("right "+turnValue);
+              //  print("right "+turnValue);
             }
         }
         else
