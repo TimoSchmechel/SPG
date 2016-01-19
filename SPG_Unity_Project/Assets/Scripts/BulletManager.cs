@@ -12,10 +12,50 @@ public class BulletManager : MonoBehaviour {
 
     public GameObject splatter;
 
+    public Color bulletColor;
+
     // Makes bullet go foward
+    void setRandomColor()
+    {
+        int randomNO = UnityEngine.Random.Range(0, 3);
+        print("Random = " + randomNO);
+        if(shooter.GetComponent<Teams>().team ==1)
+        {
+            switch(randomNO)
+            {
+                case 0:
+                    bulletColor = Color.red;
+                    break;
+                case 1:
+                    bulletColor = Color.magenta;
+                    break;
+                case 2:
+                    bulletColor = Color.yellow;
+                    break;
+            }
+        }
+        else
+        {
+            switch (randomNO)
+            {
+                case 0:
+                    bulletColor = Color.blue;
+                    break;
+                case 1:
+                    bulletColor = Color.cyan;
+                    break;
+                case 2:
+                    bulletColor = Color.green;
+                    break;
+            }
+        }
+    }
+
     void Start () {
         GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed);
-        GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
+        setRandomColor();
+        GetComponent<MeshRenderer>().material.SetColor("_Color", bulletColor);
+        //GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
     }
 
     //Destroy when it hits anything. 
@@ -35,7 +75,8 @@ public class BulletManager : MonoBehaviour {
                     {
                         GameObject tmpSplatter = Instantiate(splatter, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject;
                         tmpSplatter.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(0, 360), 0));
-                        tmpSplatter.transform.Find("Splatter").GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
+                        tmpSplatter.transform.Find("Splatter").GetComponent<MeshRenderer>().material.SetColor("_Color", bulletColor);
+                        //tmpSplatter.transform.Find("Splatter").GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
                     }
                 }
             }
