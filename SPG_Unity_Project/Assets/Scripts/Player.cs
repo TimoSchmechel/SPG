@@ -66,11 +66,6 @@ public class Player : NetworkBehaviour
         currentWeapon = weapon1;
 
         setWeaponVisibility(weapon2, false);
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/master
     }
 
     //helper function to clean code up
@@ -156,12 +151,8 @@ public class Player : NetworkBehaviour
             lockMouse();
         }
 
-<<<<<<< HEAD
-        if (Input.GetKeyDown(KeyCode.Tab))
-        { //just a temp key
-=======
+
         if (Input.GetKeyDown(KeyCode.Tab) && !isReloading) { 
->>>>>>> origin/master
             SwapWeapon();
         }
 
@@ -192,12 +183,8 @@ public class Player : NetworkBehaviour
             GetComponent<AnimationController>().reloader();
         }
     }
-<<<<<<< HEAD
-    //
-=======
 
     //assigns the appropriate ammo to the player once the reload animation is complete
->>>>>>> origin/master
     public void assignAmmo()
     {
         //is there enough bullets to reload mag?
