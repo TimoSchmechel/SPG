@@ -19,6 +19,11 @@ public class ShootServerManager : NetworkBehaviour
 
     }
 
+    public void Respawn(GameObject gameobject)
+    {
+        CmdCollision(gameObject);
+    }
+
     /**
 	 * The command tag sends a message from any client including server to the server
 	 * this method calls client rpcFire which runs on client
@@ -73,7 +78,6 @@ public class ShootServerManager : NetworkBehaviour
                 //and make sure damage doesn't get counted twice.
                 b.damageSwitch = true;
             }
-
         }
     }
 

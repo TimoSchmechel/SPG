@@ -2351,7 +2351,7 @@ TextMesh:
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190335
+    rgba: 4278190080
 --- !u!114 &11403966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2702,6 +2702,7 @@ MonoBehaviour:
   gun2: {fileID: 134000}
   readyToShoot: 0
   isRealoding: 0
+  turnValue: 0
 --- !u!135 &13528504
 SphereCollider:
   m_ObjectHideFlags: 1

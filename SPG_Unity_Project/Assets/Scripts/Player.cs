@@ -30,10 +30,13 @@ public class Player : NetworkBehaviour
     public int currentAmmo;
 
     public TextMesh nameText;
+    private ShootServerManager SSM;
 
     //sets defaults when game loaded
     void Awake()
     {
+        SSM = GetComponent<ShootServerManager>();
+
         //sets mouse cursor to lock and hide
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = (false);
@@ -61,7 +64,7 @@ public class Player : NetworkBehaviour
 
         setWeaponVisibility(weapon2, false);
 
-       
+
     }
 
     //helper function to clean code up
@@ -109,7 +112,7 @@ public class Player : NetworkBehaviour
         currentWeapon.magazineAmmo -= ammoShotCount;
         Debug.Log(transform.name + " now has " + currentAmmo + " ammo.");
     }
-    
+
     //default values
     public void SetDefaults()
     {
@@ -143,17 +146,30 @@ public class Player : NetworkBehaviour
     void Update()
     {
         //toggles mouse cursor to lock and hide by pressing escape
-       if(isPlayerReady)
+        if (isPlayerReady)
         {
             lockMouse();
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab)) { //just a temp key
+        if (Input.GetKeyDown(KeyCode.Tab))
+        { //just a temp key
             SwapWeapon();
+        }
+
+        //print Players
+        if(Input.GetKeyDown("k"))
+        {
+            GameManager.printPlayers();
         }
 
         nameText.text = this.name.ToString();
         //nameText.GetComponent<TextMesh>().color = this.gameObject.GetComponent<Teams>().colour; //sets player color
+
+        //respawn if you have fallen
+        if (this.transform.localPosition.y < -100)
+        {
+            SSM.Respawn(this.gameObject);
+        }
     }
 
     public void Reload()
@@ -166,19 +182,20 @@ public class Player : NetworkBehaviour
             GetComponent<AnimationController>().reloader();
         }
     }
-            //
+    //
     public void assignAmmo()
-    { 
+    {
         //is there enough bullets to reload mag?
         if (currentAmmo - (currentWeapon.magazineSize - currentWeapon.magazineAmmo) >= 0)
         {
             currentAmmo -= currentWeapon.magazineSize - currentWeapon.magazineAmmo;
             currentWeapon.magazineAmmo = currentWeapon.magazineSize;
-        } else //not enough bullets to reload mag fully
+        }
+        else //not enough bullets to reload mag fully
         {
             currentWeapon.magazineAmmo += currentAmmo;
             currentAmmo = 0;
         }
     }
-    
+
 }

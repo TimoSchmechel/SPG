@@ -5,92 +5,74 @@ using System.Collections;
 public class Teams : NetworkBehaviour {
 	int teamVal;
     public Player player;
+    private bool playerTeamReady = false;
 
 	[SyncVar]
 	public int team;
 
-    // Color[] teamColours = { new Color(255, 0, 0), new Color(0, 255, 0), new Color(0, 0, 255) };
-
     public Color colour;
+    
+    void startTeam()
+    {
+        GameManager.RegisterTeam(this.gameObject.name, this);
+        print("Local: the name = " + this.gameObject.name +" team NO: "+team);
+        playerTeamReady = true;
+    }
+   
+    
+    void startTeamNonLocal()
+    {
+        GameManager.RegisterTeam(this.gameObject.name, this);
+        print("NonLocal: the name = " + this.gameObject.name + " team NO: " + team);
+    }
 
-	void Start () {
+    void Start () {
 		teamVal = int.Parse(GetComponent<NetworkIdentity> ().netId.ToString ());
         player = GetComponent<Player>();
 
-		if (isLocalPlayer) {
-			CmdAssignTeam ();
-		}
-
-        //colour = new Color(Random.Range(0, 255)/255f, Random.Range(0, 255)/255f, Random.Range(0, 255)/255f); //have to be in range 0 - 1 for some reason????
-
-       // colour = Random.ColorHSV(); --> these random colours look shit
-
-    }
-    /*
-    public void UpdateColor()
-    {
-        CmdUpdateColor();
-    }
-
-    [Command]
-    void CmdUpdateColor()
-    {
-        RpcUpdateColor();
-    }
-
-    [ClientRpc]
-    void RpcUpdateColor()
-    {
-        int temp = Random.Range(0, 2);
-        if (team == 1)
-        {
-            switch(temp)
-            {
-                case 0:
-                    colour = Color.red;
-                    break;
-                case 1:
-                    colour = Color.magenta;
-                    break;
-                case 2:
-                    colour = Color.yellow;
-                    break;
-            }
+        if (isLocalPlayer) {
+            //calls after player name is assigned
+            Invoke("startTeam", 1);
         }
         else
         {
-            switch (temp)
-            {
-                case 0:
-                    colour = Color.blue;
-                    break;
-                case 1:
-                    colour = Color.cyan;
-                    break;
-                case 2:
-                    colour = Color.white;
-                    break;
-            }
+            Invoke("startTeamNonLocal", 1);
         }
-    }*/
-	
-	[Command]
+
+        //colour = new Color(Random.Range(0, 255)/255f, Random.Range(0, 255)/255f, Random.Range(0, 255)/255f); //have to be in range 0 - 1 for some reason????
+
+        // colour = Random.ColorHSV(); --> these random colours look shit
+
+    }
+
+    void Update()
+    {
+        if (playerTeamReady && isLocalPlayer)
+        {
+            CmdAssignTeam();
+        }
+    }
+    
+
+    [Command]
 	void CmdAssignTeam(){
 		RpcAssignTeam ();
 	}
 
 	[ClientRpc]
 	void RpcAssignTeam(){
-        
-		if (teamVal % 2 == 0) {
-			team = 1;
+        if (team == 1)
+        {
+            //team = 1;
+            player = GetComponent<Player>();
             player.nameText.color = Color.red;
             colour = Color.red;
-        } else {
-			team = 2;
+        }
+        else {
+            //team = 2;
+            player = GetComponent<Player>();
             player.nameText.color = Color.blue;
             colour = Color.blue;
         }
-
-	}
+    }
 }
