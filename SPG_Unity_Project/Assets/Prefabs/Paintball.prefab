@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11408454}
   - 54: {fileID: 5461086}
   - 82: {fileID: 8220242}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Paintball
   m_TagString: Paintball
   m_Icon: {fileID: 0}
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1000
   damage: 25
+  damageSwitch: 0
   shooter: {fileID: 0}
   splatter: {fileID: 133584, guid: 8db686457a34fcb45b235379014494db, type: 2}
 --- !u!135 &13587460
@@ -236,6 +237,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: spreadCustomCurve.m_RotationOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

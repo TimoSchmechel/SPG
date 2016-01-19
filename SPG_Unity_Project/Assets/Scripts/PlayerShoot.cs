@@ -28,6 +28,8 @@ public class PlayerShoot : NetworkBehaviour {
 
     public bool canShoot = true;
 
+    private float weaponCoolDown = 0;
+    private float burstCoolDown = 0;
 
     void Start()
     {
@@ -60,21 +62,45 @@ public class PlayerShoot : NetworkBehaviour {
             crossHairManager.activeCrosshair.Expand();
         }
 
-        if (Input.GetButtonDown("Fire1") && player.currentWeapon.magazineAmmo > 0 && canShoot)
+        if (player.currentWeapon.magazineAmmo > 0 && canShoot && weaponCoolDown <= 0)
         {
-            Vector3 randomAimPoint = Random.insideUnitCircle * crossHairManager.activeCrosshair.getCurrentSpread();
+            //singleshot
+            if (Input.GetButtonDown("Fire1") && player.currentWeapon.fireMode == Weapon.SINGLE_MODE)
+            {
+                shoot();
+            }
 
-            randomAimPoint *= player.currentWeapon.getNormalizedAccuracy();
+            //holding down - auto fire
+            if (Input.GetButton("Fire1") && player.currentWeapon.fireMode == Weapon.AUTO_MODE)
+            {     
+               shoot();
+            }
 
-            Ray ray = Camera.main.ScreenPointToRay(crossHairManager.gameObject.transform.position + randomAimPoint);
-            Vector3 lookPos;
-            RaycastHit hit;
-            Physics.Raycast(ray, out hit);
-            lookPos = hit.point;
+            //burst fire
+            if (Input.GetButtonDown("Fire1") && player.currentWeapon.fireMode == Weapon.BURST_MODE && burstCoolDown <= 0)
+            {
+                player.currentWeapon.currentBurstShot = (player.currentWeapon.burstSize < player.currentWeapon.magazineAmmo)? player.currentWeapon.burstSize : player.currentWeapon.magazineAmmo;
+                burstCoolDown = player.currentWeapon.burstRate;
+            }
+        }
 
-            crossHairManager.activeCrosshair.ShootKickback();
-            SSM.Shoot(player.name, lookPos);
-            player.useAmmo();
+        //initiates each shot of the burst
+        if (player.currentWeapon.fireMode == Weapon.BURST_MODE && player.currentWeapon.currentBurstShot > 0 && weaponCoolDown <= 0)
+        {
+            player.currentWeapon.currentBurstShot--;
+            shoot();
+        }
+
+        //weapon burst cool down time
+        if (weaponCoolDown > 0)
+        {
+            weaponCoolDown -= Time.deltaTime;
+        }
+
+        //burst cool down time
+        if (player.currentWeapon.fireMode == Weapon.BURST_MODE && player.currentWeapon.currentBurstShot == 0)
+        { 
+            burstCoolDown -= Time.deltaTime;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -85,29 +111,26 @@ public class PlayerShoot : NetworkBehaviour {
         //updates the onscreen ammo counter
         ammo.text = player.currentWeapon.magazineAmmo + " | " + player.currentAmmo;
 
-
-
-        //Gizmos.color = Color.green;
-
-      //  Vector3 lazerFwd = gunShooter.transform.forward;
-        //RaycastHit hit;
-      //  Debug.DrawRay(gunScope.transform.position, lazerFwd * 100, Color.green);
-        //Gizmos.DrawRay(gunShooter.transform.position, lazerFwd * 100);
     }
 
-
-
-
-
-    // useless function, unless we want raycasting
-    void Shoot()
+    private void shoot()
     {
-        RaycastHit hit; // will store information about what is hit
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, weapon.range, mask)) // if you hit something from start position, direction, all (out) possible hits, max distance, layered mask to control what we hit.
-        {
-            Debug.Log("We hit: " + hit.collider.name);
-        }
+        Vector3 randomAimPoint = Random.insideUnitCircle * crossHairManager.activeCrosshair.getCurrentSpread();
 
+        randomAimPoint *= player.currentWeapon.getNormalizedAccuracy();
+
+        Ray ray = Camera.main.ScreenPointToRay(crossHairManager.gameObject.transform.position + randomAimPoint);
+        Vector3 lookPos;
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit);
+        lookPos = hit.point;
+
+        crossHairManager.activeCrosshair.ShootKickback();
+        SSM.Shoot(player.name, lookPos);
+        player.useAmmo();
+
+        weaponCoolDown = player.currentWeapon.fireRate;
     }
+
 
 }
