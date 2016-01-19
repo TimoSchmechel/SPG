@@ -193,6 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb700e9917ed666419e344a40d5c5743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireMode: 1
+  burstSize: 3
+  fireRate: 0.15
+  burstRate: 0.5
+  currentBurstShot: 0
   magazineSize: 10
   magazineAmmo: 0
   accuracy: 0
@@ -207,6 +212,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: accuracy
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fireMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fireRate
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

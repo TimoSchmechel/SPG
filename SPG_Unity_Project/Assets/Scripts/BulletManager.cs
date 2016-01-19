@@ -21,24 +21,27 @@ public class BulletManager : MonoBehaviour {
     //Destroy when it hits anything. 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag != "Boundry")
+        if (collision.transform.tag != "Paintball")
         {
-            Vector3 fwd = transform.TransformDirection(Vector3.forward);
-            RaycastHit hit;
-
-            //Instantiate(splatt, this.transform.position, Quaternion.FromToRotation(this.transform.forward, collision.transform.position));
-            if(collision.transform.tag != "Player")
+            if (collision.transform.tag != "Boundry")
             {
-                if (Physics.Raycast(this.transform.position, fwd, out hit, 100))
+                Vector3 fwd = transform.TransformDirection(Vector3.forward);
+                RaycastHit hit;
+
+                //Instantiate(splatt, this.transform.position, Quaternion.FromToRotation(this.transform.forward, collision.transform.position));
+                if (collision.transform.tag != "Player")
                 {
-                    GameObject tmpSplatter = Instantiate(splatter, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject;
-                    tmpSplatter.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(0, 360), 0));
-                    tmpSplatter.transform.Find("Splatter").GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
+                    if (Physics.Raycast(this.transform.position, fwd, out hit, 100))
+                    {
+                        GameObject tmpSplatter = Instantiate(splatter, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject;
+                        tmpSplatter.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(0, 360), 0));
+                        tmpSplatter.transform.Find("Splatter").GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
+                    }
                 }
             }
-        }
 
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }
 
     }
 

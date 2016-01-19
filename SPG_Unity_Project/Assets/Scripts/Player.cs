@@ -17,10 +17,9 @@ public class Player : NetworkBehaviour
     public Weapon weapon2;
     public Transform weaponHolder;
 
-    public bool canReload;
-
     public bool isPlayerReady;
 
+    public bool isReloading = false;
 
     //Current Health synced across servers
     [SyncVar]
@@ -43,14 +42,18 @@ public class Player : NetworkBehaviour
         CursorLockedVar = (true);
 
         SetDefaults();
-        canReload = false;
-        //nameText.text = PlayerPrefs.GetString(GlobalScript.ppPlayerNameKey);
     }
 
     void Start()
     {
         currentAmmo = maxAmmo;
 
+        setupWeapons();
+    }
+
+    //instantiates weapon1 and weapon2 and assign w1 as the currentweapon and sets w2 to invisible
+    private void setupWeapons()
+    {
         GameObject weaponObject = GameObject.Instantiate(weapon1.gameObject, weaponHolder.position, weaponHolder.rotation) as GameObject;//instantiate as temp gameobject to assign it to variable
         weapon1 = weaponObject.GetComponent<Weapon>();
 
@@ -63,8 +66,11 @@ public class Player : NetworkBehaviour
         currentWeapon = weapon1;
 
         setWeaponVisibility(weapon2, false);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
     }
 
     //helper function to clean code up
@@ -87,7 +93,6 @@ public class Player : NetworkBehaviour
             currentWeapon = weapon2;
         }
         else {
-
             if (currentWeapon.Equals(weapon2))
             {
                 Debug.Log(name + " has swapped to Weapon 1");
@@ -151,8 +156,12 @@ public class Player : NetworkBehaviour
             lockMouse();
         }
 
+<<<<<<< HEAD
         if (Input.GetKeyDown(KeyCode.Tab))
         { //just a temp key
+=======
+        if (Input.GetKeyDown(KeyCode.Tab) && !isReloading) { 
+>>>>>>> origin/master
             SwapWeapon();
         }
 
@@ -172,17 +181,23 @@ public class Player : NetworkBehaviour
         }
     }
 
+    //initiates the reload animation
     public void Reload()
     {
         //only reload if the magazine is not full and there is ammo
         if (currentWeapon.magazineAmmo < currentWeapon.magazineSize && currentAmmo > 0)
         {
-            //
-            canReload = true; //this is for animation purposes
+            GetComponent<PlayerShoot>().canShoot = false;
+            isReloading = true;
             GetComponent<AnimationController>().reloader();
         }
     }
+<<<<<<< HEAD
     //
+=======
+
+    //assigns the appropriate ammo to the player once the reload animation is complete
+>>>>>>> origin/master
     public void assignAmmo()
     {
         //is there enough bullets to reload mag?
@@ -196,6 +211,9 @@ public class Player : NetworkBehaviour
             currentWeapon.magazineAmmo += currentAmmo;
             currentAmmo = 0;
         }
+
+        GetComponent<PlayerShoot>().canShoot = true;
+        isReloading = false;
     }
 
 }
