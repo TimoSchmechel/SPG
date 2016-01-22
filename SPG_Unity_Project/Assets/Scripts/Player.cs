@@ -31,6 +31,14 @@ public class Player : NetworkBehaviour
     public TextMesh nameText;
     private ShootServerManager SSM;
 
+    public Transform spine;
+    public float spineRotX = 0;
+    public float spineRotY = 0;
+    public float spineRotZ = 0;
+
+    private Vector3 spineRotOffset = Vector3.zero;
+    private Vector3 lookPos = Vector3.zero;
+
     //sets defaults when game loaded
     void Awake()
     {
@@ -170,6 +178,40 @@ public class Player : NetworkBehaviour
         {
             SSM.Respawn(this.gameObject);
         }
+
+        //calculateSpine();
+    }
+
+    [Command]
+    void Cmd_Spine(string name, Vector3 lookAt, Vector3 rotationOffset)
+    {
+        Rpc_Spine(name,lookAt,rotationOffset);
+    }
+
+    [ClientRpc]
+    void Rpc_Spine(string name, Vector3 lookAt, Vector3 rotationOffset)
+    {
+        GameObject temp = GameObject.Find(name);
+        spine.LookAt(lookAt);
+        spine.Rotate(rotationOffset, Space.Self);
+    }
+
+    void calculateSpine()
+    {
+        if (isLocalPlayer && GetComponent<PlayerShoot>().canShoot)
+        {
+            spineRotOffset = new Vector3(spineRotX, spineRotY, spineRotZ);
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            lookPos = ray.GetPoint(30);
+            String name = this.gameObject.name;
+            Cmd_Spine(name, lookPos, spineRotOffset);
+        }
+    }
+
+    void LateUpdate()
+    {
+        //spine.LookAt(lookPos);
+        //spine.Rotate(spineRotOffset, Space.Self);
     }
 
     //initiates the reload animation

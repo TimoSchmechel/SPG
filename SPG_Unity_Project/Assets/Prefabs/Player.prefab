@@ -350,7 +350,7 @@ GameObject:
   m_IsActive: 0
 --- !u!1 &127008
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -797,6 +797,21 @@ GameObject:
   - 4: {fileID: 405182}
   m_Layer: 8
   m_Name: mixamorig:RightToeBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &166610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 462020}
+  m_Layer: 0
+  m_Name: CameraPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1538,12 +1553,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127008}
-  m_LocalRotation: {x: 0, y: 0.18160471, z: 0, w: -0.9833716}
-  m_LocalPosition: {x: 0.46, y: 1.88, z: -0.96}
+  m_LocalRotation: {x: -0.00000003081603, y: 0.016906545, z: 0.0000000047993924, w: -0.9998571}
+  m_LocalPosition: {x: 0.12259522, y: 0.52299994, z: -1.0574358}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 458620}
-  m_Father: {fileID: 469380}
+  m_Father: {fileID: 462020}
   m_RootOrder: 0
 --- !u!4 &445264
 Transform:
@@ -1836,6 +1851,19 @@ Transform:
   - {fileID: 462484}
   m_Father: {fileID: 458728}
   m_RootOrder: 0
+--- !u!4 &462020
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166610}
+  m_LocalRotation: {x: -0.0000000311752, y: -0.16495335, z: -8.767498e-10, w: 0.9863014}
+  m_LocalPosition: {x: 0.211, y: 1.357, z: 0.073}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 441596}
+  m_Father: {fileID: 469380}
+  m_RootOrder: 0
 --- !u!4 &462400
 Transform:
   m_ObjectHideFlags: 1
@@ -1898,7 +1926,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 441596}
+  - {fileID: 462020}
   - {fileID: 402004}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2295,7 +2323,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2317,7 +2345,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!95 &9527722
 Animator:
   serializedVersion: 3
@@ -2435,6 +2463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 2061724}
   cameraRoationLimit: 85
+  cameraPivot: {fileID: 462020}
 --- !u!114 &11427062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2681,6 +2710,10 @@ MonoBehaviour:
   currentHealth: 100
   currentAmmo: 999
   nameText: {fileID: 10278580}
+  spine: {fileID: 465642}
+  spineRotX: 0
+  spineRotY: 0
+  spineRotZ: 0
 --- !u!114 &11494868
 MonoBehaviour:
   m_ObjectHideFlags: 1

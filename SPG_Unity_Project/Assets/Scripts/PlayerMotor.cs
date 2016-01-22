@@ -17,7 +17,8 @@ public class PlayerMotor : MonoBehaviour {
     [SerializeField]
     private float cameraRoationLimit = 85f;
 
-	
+    public Transform cameraPivot;
+
 	private Rigidbody rb;
 
 	void Start()
@@ -89,8 +90,9 @@ public class PlayerMotor : MonoBehaviour {
             currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRoationLimit, cameraRoationLimit);//keeps the rotation within the bounds of the limit.
 
             //apply rotation
-            cam.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f); 
-		}
+            //cam.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
+            cameraPivot.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
+        }
 	}
 
 

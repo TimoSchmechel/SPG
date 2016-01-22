@@ -68,7 +68,7 @@ public class AnimationController : MonoBehaviour {
             myAnimator.SetBool("Flipping", true);
             GetComponent<PlayerShoot>().canShoot = false; //stops player shooting 
             Invoke("StopFliping", 3);
-            GetComponent<PlayerShoot>().canShoot = true;
+  
         }
 
         /*if (Input.GetButtonUp("Flip"))
@@ -157,6 +157,7 @@ public class AnimationController : MonoBehaviour {
     void StopFliping()
     {
         myAnimator.SetBool("Flipping", false);
+        GetComponent<PlayerShoot>().canShoot = true;
     }
 
     void StopReload()
