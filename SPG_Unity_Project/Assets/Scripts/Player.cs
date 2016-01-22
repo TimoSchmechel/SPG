@@ -57,6 +57,9 @@ public class Player : NetworkBehaviour
         currentAmmo = maxAmmo;
 
         setupWeapons();
+
+
+        spineRotOffset = new Vector3(spineRotX, spineRotY, spineRotZ);
     }
 
     //instantiates weapon1 and weapon2 and assign w1 as the currentweapon and sets w2 to invisible
@@ -178,40 +181,40 @@ public class Player : NetworkBehaviour
         {
             SSM.Respawn(this.gameObject);
         }
+    }
 
-        //calculateSpine();
+    void LateUpdate()
+    {
+        calculateSpine();
+        UpdateSpine();
+    }
+
+    private void UpdateSpine()
+    {
+        spine.LookAt(lookPos);
+        spine.Rotate(spineRotOffset, Space.Self);
     }
 
     [Command]
-    void Cmd_Spine(string name, Vector3 lookAt, Vector3 rotationOffset)
+    void Cmd_Spine(Vector3 lookAt)
     {
-        Rpc_Spine(name,lookAt,rotationOffset);
+        Rpc_Spine(lookAt);
     }
 
     [ClientRpc]
-    void Rpc_Spine(string name, Vector3 lookAt, Vector3 rotationOffset)
+    void Rpc_Spine(Vector3 lookAt)
     {
-        GameObject temp = GameObject.Find(name);
-        spine.LookAt(lookAt);
-        spine.Rotate(rotationOffset, Space.Self);
+        lookPos = lookAt;
     }
 
     void calculateSpine()
     {
         if (isLocalPlayer && GetComponent<PlayerShoot>().canShoot)
         {
-            spineRotOffset = new Vector3(spineRotX, spineRotY, spineRotZ);
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             lookPos = ray.GetPoint(30);
-            String name = this.gameObject.name;
-            Cmd_Spine(name, lookPos, spineRotOffset);
+            Cmd_Spine(lookPos);
         }
-    }
-
-    void LateUpdate()
-    {
-        //spine.LookAt(lookPos);
-        //spine.Rotate(spineRotOffset, Space.Self);
     }
 
     //initiates the reload animation
