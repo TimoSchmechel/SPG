@@ -186,8 +186,11 @@ public class Player : NetworkBehaviour
 
     void LateUpdate()
     {
-        calculateSpine();
-        UpdateSpine();
+        if (isLocalPlayer && GetComponent<PlayerShoot>().canShoot)
+        {
+            calculateSpine();
+            UpdateSpine();
+        }
     }
 
     private void UpdateSpine()
@@ -210,12 +213,10 @@ public class Player : NetworkBehaviour
 
     void calculateSpine()
     {
-        if (isLocalPlayer && GetComponent<PlayerShoot>().canShoot)
-        {
-            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            lookPos = ray.GetPoint(30);
-            Cmd_Spine(lookPos);
-        }
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        lookPos = ray.GetPoint(30);
+        Cmd_Spine(lookPos);
+        
     }
 
     //initiates the reload animation
