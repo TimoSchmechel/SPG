@@ -1858,7 +1858,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166610}
   m_LocalRotation: {x: -0.0000000311752, y: -0.16495335, z: -8.767498e-10, w: 0.9863014}
-  m_LocalPosition: {x: 0.211, y: 1.357, z: 0.073}
+  m_LocalPosition: {x: 0.842, y: 1.231, z: -0.337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 441596}
@@ -2125,8 +2125,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116800}
-  m_LocalRotation: {x: -0.588133, y: 0.60658824, z: 0.3723654, w: 0.38404992}
-  m_LocalPosition: {x: 0.000063598585, y: -0.000005004942, z: -0.000029132148}
+  m_LocalRotation: {x: -0.47722402, y: 0.4396356, z: 0.5516066, w: 0.5241259}
+  m_LocalPosition: {x: -0.011, y: 0.151, z: 0.043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 425382}
@@ -2711,8 +2711,8 @@ MonoBehaviour:
   currentAmmo: 999
   nameText: {fileID: 10278580}
   spine: {fileID: 465642}
-  spineRotX: 0
-  spineRotY: 0
+  spineRotX: -8
+  spineRotY: 55
   spineRotZ: 0
 --- !u!114 &11494868
 MonoBehaviour:

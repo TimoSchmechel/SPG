@@ -58,7 +58,6 @@ public class Player : NetworkBehaviour
 
         setupWeapons();
 
-
         spineRotOffset = new Vector3(spineRotX, spineRotY, spineRotZ);
     }
 
@@ -181,6 +180,8 @@ public class Player : NetworkBehaviour
         {
             SSM.Respawn(this.gameObject);
         }
+
+
     }
 
     void LateUpdate()
