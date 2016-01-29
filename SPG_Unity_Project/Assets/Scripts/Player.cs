@@ -176,7 +176,7 @@ public class Player : NetworkBehaviour
         //nameText.GetComponent<TextMesh>().color = this.gameObject.GetComponent<Teams>().colour; //sets player color
 
         //respawn if you have fallen
-        if (this.transform.localPosition.y < -100)
+        if (this.transform.localPosition.y < 10)
         {
             SSM.Respawn(this.gameObject);
         }
@@ -186,9 +186,10 @@ public class Player : NetworkBehaviour
 
     void LateUpdate()
     {
-        if (isLocalPlayer && GetComponent<PlayerShoot>().canShoot)
-        {
-            calculateSpine();
+
+        calculateSpine();
+        if (GetComponent<PlayerShoot>().canShoot)
+        { 
             UpdateSpine();
         }
     }
@@ -213,9 +214,12 @@ public class Player : NetworkBehaviour
 
     void calculateSpine()
     {
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        lookPos = ray.GetPoint(30);
-        Cmd_Spine(lookPos);
+    if (isLocalPlayer && GetComponent<PlayerShoot>().canShoot)
+        {
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            lookPos = ray.GetPoint(30);
+            Cmd_Spine(lookPos);
+        }
         
     }
 
