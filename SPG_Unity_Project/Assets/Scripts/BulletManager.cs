@@ -13,6 +13,7 @@ public class BulletManager : MonoBehaviour {
     public GameObject splatter;
 
     public Color bulletColor;
+    public int bulletTeam =0;
 
     // Makes bullet go foward
     void setRandomColor()
@@ -33,6 +34,8 @@ public class BulletManager : MonoBehaviour {
                     bulletColor = Color.yellow;
                     break;
             }
+
+            bulletTeam = 1;
         }
         else
         {
@@ -48,6 +51,8 @@ public class BulletManager : MonoBehaviour {
                     bulletColor = Color.green;
                     break;
             }
+
+            bulletTeam = 2;
         }
     }
 
@@ -69,8 +74,9 @@ public class BulletManager : MonoBehaviour {
                 RaycastHit hit;
 
                 //Instantiate(splatt, this.transform.position, Quaternion.FromToRotation(this.transform.forward, collision.transform.position));
-                if (collision.transform.tag != "Player")
+                if (collision.transform.tag != "Player") //&& collision.transform.GetComponent<Teams>().team != bulletTeam)
                 {
+                    //print("BulletNO: " + bulletTeam + " TeamNO: " + collision.transform.GetComponent<Teams>().team);
                     if (Physics.Raycast(this.transform.position, fwd, out hit, 100))
                     {
                         GameObject tmpSplatter = Instantiate(splatter, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject;

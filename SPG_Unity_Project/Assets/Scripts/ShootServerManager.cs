@@ -65,9 +65,9 @@ public class ShootServerManager : NetworkBehaviour
     // if it is hit by a bullet, send to damage calculator to apply damage or respawn.
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Paintball")
+        if (collision.gameObject.tag == "Paintball" && collision.gameObject.GetComponent<BulletManager>().bulletTeam != this.gameObject.GetComponent<Teams>().team)
         {
-
+            print("BulletNO: " + collision.gameObject.GetComponent<BulletManager>().bulletTeam + " TeamNO: " + this.gameObject.GetComponent<Teams>().team );
             BulletManager b = collision.gameObject.GetComponent<BulletManager>();
 
             if(!b.damageSwitch)
