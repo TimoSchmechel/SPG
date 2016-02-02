@@ -178,7 +178,7 @@ public class Player : NetworkBehaviour
         //respawn if you have fallen
         if (this.transform.localPosition.y < 10)
         {
-            SSM.Respawn(this.gameObject);
+          //  SSM.Respawn(this.gameObject); -----> uncomment
         }
 
 

@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour {
 		float yRot = Input.GetAxisRaw("Mouse X");
 
 		Vector3 rotation = new Vector3 (0f, yRot, 0f) * lookSensitivity;
+
+        /*
         if(yRot >0)
         {
             AC.turnValue = 1;
@@ -77,6 +79,7 @@ public class PlayerController : MonoBehaviour {
         {
             AC.turnValue = 0;
         }
+        */
 
 		//Apply rotation
         if(canManageCamera)
