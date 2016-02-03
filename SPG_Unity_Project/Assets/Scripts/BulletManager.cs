@@ -4,7 +4,7 @@ using System;
 
 public class BulletManager : MonoBehaviour {
 
-    public float speed = 1000f;
+    public float speed = 5000f;
     public int damage = 25;
     public bool damageSwitch = false;//the little switch we toggle to determine whether its delivered its damage or not...
 
@@ -14,6 +14,9 @@ public class BulletManager : MonoBehaviour {
 
     public Color bulletColor;
     public int bulletTeam =0;
+
+    private Rigidbody rigidBod;
+    public float gravityFactor = 0.5f;
 
     // Makes bullet go foward
     void setRandomColor()
@@ -61,6 +64,7 @@ public class BulletManager : MonoBehaviour {
         setRandomColor();
         GetComponent<MeshRenderer>().material.SetColor("_Color", bulletColor);
         //GetComponent<MeshRenderer>().material.SetColor("_Color", shooter.GetComponent<Teams>().colour);
+        rigidBod = GetComponent<Rigidbody>();
     }
 
     //Destroy when it hits anything. 
@@ -90,6 +94,11 @@ public class BulletManager : MonoBehaviour {
             Destroy(this.gameObject);
         }
 
+    }
+
+    void FixedUpdate()
+    {
+        rigidBod.AddForce(Physics.gravity * rigidBod.mass * gravityFactor);
     }
 
 

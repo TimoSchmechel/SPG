@@ -31,6 +31,8 @@ public class PlayerShoot : NetworkBehaviour {
     private float weaponCoolDown = 0;
     private float burstCoolDown = 0;
 
+    public bool automaticReload = false; //setting that the player reloads automatically if his gun is empty and he tries to shoot
+
     void Start()
     {
         player = GetComponent<Player>();
@@ -84,8 +86,13 @@ public class PlayerShoot : NetworkBehaviour {
             }
         }
 
+        if (Input.GetButton("Fire1") && player.currentWeapon.magazineAmmo == 0 && automaticReload)
+        {
+            player.Reload();
+        }
+
         //initiates each shot of the burst
-        if (player.currentWeapon.fireMode == Weapon.BURST_MODE && player.currentWeapon.currentBurstShot > 0 && weaponCoolDown <= 0)
+            if (player.currentWeapon.fireMode == Weapon.BURST_MODE && player.currentWeapon.currentBurstShot > 0 && weaponCoolDown <= 0)
         {
             player.currentWeapon.currentBurstShot--;
             shoot();

@@ -120,11 +120,12 @@ public class AnimationController : MonoBehaviour {
         /////////////////
 
 
-        float xRot = Input.GetAxisRaw("Mouse X");
-        
-        //if player is standing still
-        if (myAnimator.GetFloat(VSpeed) == 0 && myAnimator.GetFloat(HSpeed) == 0 && myAnimator.GetInteger("CurrentAction") == 0)
+        //if player is standing still, and in idle layer or reloading layer
+        if (myAnimator.GetFloat(VSpeed) == 0 && myAnimator.GetFloat(HSpeed) == 0 && (myAnimator.GetInteger("CurrentAction") == 0 || myAnimator.GetInteger("CurrentAction") == 3))
         {
+
+            float xRot = Input.GetAxisRaw("Mouse X");
+
             myAnimator.SetFloat(turningSpeed, Mathf.Abs(xRot));
 
             if (xRot < 0)
@@ -143,12 +144,14 @@ public class AnimationController : MonoBehaviour {
                 myAnimator.SetBool(TLeft, false);
             }
 
-             } //else
-            //   {
-            // myAnimator.SetFloat(turningSpeed, 0);
-            //   }
+        } else
+        {
+            myAnimator.SetBool(TRight, false);
+            myAnimator.SetBool(TLeft, false);
+        }
 
-            print("current action = " + myAnimator.GetFloat("turningSpeed") + " Tleft: " + myAnimator.GetBool(TLeft) + " TRight: " + myAnimator.GetBool(TRight));
+
+          //  print("turning speed: " + myAnimator.GetFloat("turningSpeed") + " Tleft: " + myAnimator.GetBool(TLeft) + " TRight: " + myAnimator.GetBool(TRight));
 
             /////////////////////////
 
@@ -202,10 +205,14 @@ public class AnimationController : MonoBehaviour {
             if (myAnimator.GetInteger("CurrentAction") == 0)
             {
                 myAnimator.SetInteger("CurrentAction", 2);
+                myAnimator.SetLayerWeight(4, 0f); //stop using aiming animation layer
+                GetComponent<PlayerShoot>().canShoot = false; //stops player shooting 
             }
             else if (myAnimator.GetInteger("CurrentAction") == 2)
             {
                 myAnimator.SetInteger("CurrentAction", 0);
+                myAnimator.SetLayerWeight(4, 1f);//start using aiming animation layer again
+                GetComponent<PlayerShoot>().canShoot = true; 
             }
         }
 
@@ -242,6 +249,7 @@ public class AnimationController : MonoBehaviour {
     {
         myAnimator.SetInteger("CurrentAction", 0);
         myAnimator.SetLayerWeight(3, 0f);
+        myAnimator.SetLayerWeight(4, 1f); //start using aiming animation layer again
         player.assignAmmo();
     }
 
@@ -249,7 +257,8 @@ public class AnimationController : MonoBehaviour {
     {
         myAnimator.SetInteger("CurrentAction", 3);
         Invoke("StopReload", 3f);
-        myAnimator.SetLayerWeight(3, 1f);
+        myAnimator.SetLayerWeight(3, 1f); //start reload layer
+        myAnimator.SetLayerWeight(4, 0f); //stop using aiming animation layer
     }
     
 }

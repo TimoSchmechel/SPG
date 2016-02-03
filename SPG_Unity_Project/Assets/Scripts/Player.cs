@@ -188,7 +188,7 @@ public class Player : NetworkBehaviour
     {
 
         calculateSpine();
-        if (GetComponent<PlayerShoot>().canShoot)
+        if (GetComponent<PlayerShoot>().canShoot || isReloading)
         { 
             UpdateSpine();
         }
@@ -214,7 +214,7 @@ public class Player : NetworkBehaviour
 
     void calculateSpine()
     {
-    if (isLocalPlayer && GetComponent<PlayerShoot>().canShoot)
+    if (isLocalPlayer)
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             lookPos = ray.GetPoint(30);
