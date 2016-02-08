@@ -2639,8 +2639,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentWeapon: {fileID: 0}
-  weapon1: {fileID: 11436358, guid: fa04190944880744a83dd6396512c0ab, type: 2}
-  weapon2: {fileID: 11436358, guid: cd53eb91504e1254eb46521182e8240b, type: 2}
+  weapon1: {fileID: 11441380, guid: 3a3091a272cdb894d9db9996c1446141, type: 2}
+  weapon2: {fileID: 11457286, guid: 5d45c6d02c918ed489ae7bbd286d9428, type: 2}
   weaponHolder: {fileID: 494826}
   isPlayerReady: 0
   isReloading: 0
@@ -2967,7 +2967,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: weapon1
       value: 
-      objectReference: {fileID: 11436358, guid: fa04190944880744a83dd6396512c0ab,
+      objectReference: {fileID: 11441380, guid: 3a3091a272cdb894d9db9996c1446141,
         type: 2}
     - target: {fileID: 0}
       propertyPath: currentWeapon
@@ -2976,7 +2976,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: weapon2
       value: 
-      objectReference: {fileID: 11436358, guid: cd53eb91504e1254eb46521182e8240b,
+      objectReference: {fileID: 11457286, guid: 5d45c6d02c918ed489ae7bbd286d9428,
         type: 2}
     - target: {fileID: 0}
       propertyPath: m_Enabled
