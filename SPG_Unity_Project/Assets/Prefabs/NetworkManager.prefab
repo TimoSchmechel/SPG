@@ -206,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 2017268, guid: c310b1793e684ac4d851daf8950f7160, type: 2}
   cameraRoationLimit: 85
+  cameraPivot: {fileID: 0}
 --- !u!114 &11489468
 MonoBehaviour:
   m_ObjectHideFlags: 1

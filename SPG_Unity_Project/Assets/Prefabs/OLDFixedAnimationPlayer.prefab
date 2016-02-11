@@ -2524,7 +2524,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2617,7 +2617,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39b54f75542d0548bb4f6b1ff3dccb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   team: 0
+  colour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &11424102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2629,6 +2631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd40fa6ac413b38498b5b2935e0fe233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraRoot: {fileID: 0}
   componentsToDisable:
   - {fileID: 11429418}
   - {fileID: 11453286}
@@ -2651,6 +2654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 2061724}
   cameraRoationLimit: 85
+  cameraPivot: {fileID: 0}
 --- !u!114 &11427062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2680,6 +2684,7 @@ MonoBehaviour:
   m_IsWalking: 1
   m_WalkSpeed: 5
   m_RunSpeed: 10
+  aimingSpeed: 2
   m_RunstepLenghten: 0.7
   m_JumpSpeed: 10
   m_StickToGroundForce: 10
@@ -2760,6 +2765,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 0}
+  m_CharacterController: {fileID: 0}
 --- !u!114 &11433404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2854,6 +2860,8 @@ MonoBehaviour:
   ammo: {fileID: 0}
   gunShooter: {fileID: 134000}
   gunScope: {fileID: 136028}
+  canShoot: 1
+  automaticReload: 0
 --- !u!114 &11456124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2889,9 +2897,15 @@ MonoBehaviour:
   weapon1: {fileID: 0}
   weapon2: {fileID: 0}
   weaponHolder: {fileID: 0}
+  isPlayerReady: 0
+  isReloading: 0
   currentHealth: 100
   currentAmmo: 999
   nameText: {fileID: 10278580}
+  spine: {fileID: 0}
+  spineRotX: 0
+  spineRotY: 0
+  spineRotZ: 0
 --- !u!114 &11494868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2904,6 +2918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 119298, guid: 0a4e27ccc28c2e44d86cfcc973ba64e7, type: 2}
+  teamDeathmatch: 0
   gunShooter: {fileID: 458620}
 --- !u!114 &11496750
 MonoBehaviour:
@@ -2916,9 +2931,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e2998b7f7aafe4eb0b5f873ee08de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun1: {fileID: 134000}
-  gun2: {fileID: 134000}
   readyToShoot: 0
+  aimingModifier: 0.6
 --- !u!135 &13528504
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -3227,6 +3241,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spreadCustomCurve.m_RotationOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -13,7 +13,7 @@ GameObject:
   - 23: {fileID: 2359864}
   - 114: {fileID: 11408454}
   - 54: {fileID: 5461086}
-  - 82: {fileID: 8220242}
+  - 82: {fileID: 8238268}
   m_Layer: 2
   m_Name: Paintball
   m_TagString: Paintball
@@ -78,10 +78,10 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!82 &8220242
+--- !u!82 &8238268
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -126,7 +126,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -248,6 +248,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: speed
       value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: db2e24f0231cb184083ef4c1b5a9d824, type: 3}
+    - target: {fileID: 0}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Interpolate
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
