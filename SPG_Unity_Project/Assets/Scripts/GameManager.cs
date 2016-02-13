@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,8 +9,15 @@ public class GameManager : MonoBehaviour
 
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
     private static Dictionary<string, int> teams = new Dictionary<string, int>();
-    private static int teamCount =0;
+    private static Dictionary<string, int> playerKills = new Dictionary<string, int>();
+    private static Dictionary<string, int> playerDeaths = new Dictionary<string, int>();
+    private static int teamCount = 0;
+    private static Text scoreboard;
 
+    void Start()
+    {
+        scoreboard = GameObject.Find("Scoreboard").GetComponent<Text>();
+    }
 
     public static void RegisterPlayer(string _netID, Player _player)
     {
@@ -23,6 +31,8 @@ public class GameManager : MonoBehaviour
         string _playerID = name;
         players.Add(_playerID, _player);
         _player.transform.name = _playerID;
+        playerKills.Add(_playerID, 0);
+        playerDeaths.Add(_playerID, 0);
     }
 
     public static void UnRegisterPlayer(string _playerID)
@@ -82,5 +92,36 @@ public class GameManager : MonoBehaviour
             print("newTeamCount = " + teamCount);
         }
     }
+    public static void AddKill(string name)
+    {
+        int newKills = playerKills[name] + 1;
+        playerKills.Remove(name);
+        playerKills.Add(name, newKills);
+    }
 
+    public static void AddDeath(string name)
+    {
+        int newDeaths = playerDeaths[name] + 1;
+        playerDeaths.Remove(name);
+        playerDeaths.Add(name, newDeaths);
+    }
+
+    public static void PrintAllKD()
+    {
+        foreach(KeyValuePair<string, int> killsEntry in playerKills)
+        {
+            print(killsEntry.Key + " - kills: " + killsEntry.Value + " Deaths: " + playerDeaths[killsEntry.Key]);
+        }
+    }
+
+    public static void UpdateScoreboard()
+    {
+        string scoreboardText = "";
+        foreach (KeyValuePair<string, int> killsEntry in playerKills)
+        {
+            scoreboardText += killsEntry.Key + " - kills: " + killsEntry.Value + " Deaths: " + playerDeaths[killsEntry.Key] + "\n";
+        }
+
+        scoreboard.text = scoreboardText;
+    }
 }

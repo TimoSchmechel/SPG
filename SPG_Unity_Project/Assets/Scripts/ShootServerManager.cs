@@ -7,7 +7,7 @@ public class ShootServerManager : NetworkBehaviour
     
     [SerializeField]
     private GameObject bullet;
-    public bool teamDeathmatch = false;
+    public bool teamDeathmatch = true;
 
     public Transform gunShooter; //maybe also grab gunshooter dynamically from player.currentWeapon
     private Transform endShooter;
@@ -73,7 +73,7 @@ public class ShootServerManager : NetworkBehaviour
             if(!b.damageSwitch)
             { 
                 //calculate the damage to the player
-                RpcDamageCalculator(gameObject.name, b.GetComponent<BulletManager>().damage, b.GetComponent<BulletManager>().shooter.GetComponent<Teams>().team);
+                RpcDamageCalculator(gameObject.name, b.GetComponent<BulletManager>().damage, b.GetComponent<BulletManager>().shooter.name);
 
                 //and make sure damage doesn't get counted twice.
                 b.damageSwitch = true;
@@ -93,6 +93,10 @@ public class ShootServerManager : NetworkBehaviour
     {
         GameObject[] respawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
+        GameManager.AddDeath(killedObject.name);
+        GameManager.PrintAllKD();
+        GameManager.UpdateScoreboard();
+
         int respawnNumber = Random.Range(0, respawnPoints.Length);
         print(respawnNumber);
         killedObject.transform.position = respawnPoints[respawnNumber].transform.position;
@@ -101,11 +105,15 @@ public class ShootServerManager : NetworkBehaviour
 
     [ClientRpc]
     // grabs the player id, sets it to a variable, takes the damage, then if killed, resets the damage and respawns 
-    void RpcDamageCalculator(string playerID, int Damage, int shooterTeam)
+    void RpcDamageCalculator(string playerID, int Damage, string shooterName)
     {
         Player player = GameManager.GetPlayer(playerID);
+
         if (teamDeathmatch)
         {
+
+            int shooterTeam = GameManager.GetTeam(shooterName);
+
             if (player.GetComponent<Teams>().team != shooterTeam)
             {
 
@@ -114,6 +122,9 @@ public class ShootServerManager : NetworkBehaviour
 
                 if (player.currentHealth <= 0)
                 {
+
+                    GameManager.AddKill(shooterName);
+
                     //RpcCollision();
                     CmdCollision(this.gameObject);
                     player.currentHealth = 100;
@@ -131,11 +142,16 @@ public class ShootServerManager : NetworkBehaviour
 
             if (player.currentHealth <= 0)
             {
+
+                GameManager.AddKill(shooterName);
+
                 //RpcCollision();
                 CmdCollision(this.gameObject);
                 player.currentHealth = 100;
             }
         }
+
+
     }
 
 }
