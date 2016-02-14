@@ -92,7 +92,6 @@ public class ShootServerManager : NetworkBehaviour
     void RpcCollision(GameObject killedObject)
     {
         GameObject[] respawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-
         GameManager.AddDeath(killedObject.name);
         GameManager.PrintAllKD();
         GameManager.UpdateScoreboard();
@@ -100,7 +99,7 @@ public class ShootServerManager : NetworkBehaviour
         int respawnNumber = Random.Range(0, respawnPoints.Length);
         print(respawnNumber);
         killedObject.transform.position = respawnPoints[respawnNumber].transform.position;
-
+        killedObject.GetComponent<Player>().SetupPlayer(); 
     }
 
     [ClientRpc]
@@ -122,11 +121,9 @@ public class ShootServerManager : NetworkBehaviour
 
                 if (player.currentHealth <= 0)
                 {
-
                     GameManager.AddKill(shooterName);
-
-                    //RpcCollision();
                     CmdCollision(this.gameObject);
+
                     player.currentHealth = 100;
                 }
             }
@@ -142,7 +139,6 @@ public class ShootServerManager : NetworkBehaviour
 
             if (player.currentHealth <= 0)
             {
-
                 GameManager.AddKill(shooterName);
 
                 //RpcCollision();

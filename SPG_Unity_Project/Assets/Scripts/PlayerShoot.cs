@@ -92,7 +92,7 @@ public class PlayerShoot : NetworkBehaviour {
         }
 
         //initiates each shot of the burst
-            if (player.currentWeapon.fireMode == Weapon.BURST_MODE && player.currentWeapon.currentBurstShot > 0 && weaponCoolDown <= 0)
+        if (player.currentWeapon.fireMode == Weapon.BURST_MODE && player.currentWeapon.currentBurstShot > 0 && weaponCoolDown <= 0)
         {
             player.currentWeapon.currentBurstShot--;
             shoot();
@@ -127,6 +127,8 @@ public class PlayerShoot : NetworkBehaviour {
         randomAimPoint *= player.currentWeapon.getNormalizedAccuracy();
 
         Ray ray = Camera.main.ScreenPointToRay(crossHairManager.gameObject.transform.position + randomAimPoint);
+       // print(crossHairManager.gameObject.transform.position);
+      //  Ray ray = new Ray(gunShooter.transform.position + )
         Vector3 lookPos;
         RaycastHit hit;
         Physics.Raycast(ray, out hit);

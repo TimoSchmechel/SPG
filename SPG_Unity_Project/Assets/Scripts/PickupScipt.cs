@@ -42,14 +42,18 @@ public class PickupScipt : MonoBehaviour {
     {
         if(col.CompareTag("Player"))
         {
-			if(type == AMMO){
-            col.GetComponent<Player>().currentAmmo += amount;
-            GetComponent<BoxCollider>().enabled = false;
-            GetComponent<MeshRenderer>().enabled = false;
+			if(type == AMMO)
+            {
+                // col.GetComponent<Player>().currentAmmo += amount;
+                col.GetComponent<Player>().AddAmmo(amount);
+                GetComponent<BoxCollider>().enabled = false;
+                GetComponent<MeshRenderer>().enabled = false;
 			}
 
-			if(type == HEALTH){
-				col.GetComponent<Player>().currentHealth += amount;
+			if(type == HEALTH)
+            {
+                //col.GetComponent<Player>().currentHealth += amount;
+                col.GetComponent<Player>().AddHealth(amount);
 				GetComponent<SphereCollider>().enabled = false;
 				GetComponent<MeshRenderer>().enabled = false;
 			}

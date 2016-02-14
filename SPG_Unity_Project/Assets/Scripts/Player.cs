@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class Player : NetworkBehaviour
 {
     bool CursorLockedVar;
-    //Total Max Health
-    [SerializeField]
+
+    public int startingAmmo = 100;
+
     private int maxHealth = 100;
-    private int maxAmmo = 20;
+    private int maxAmmo = 200;
     private int ammoShotCount = 1;
 
     public Weapon currentWeapon;
@@ -54,15 +55,23 @@ public class Player : NetworkBehaviour
 
     void Start()
     {
-        currentAmmo = maxAmmo;
+        SetupPlayer(); 
 
-        setupWeapons();
+        SetupWeapons();
 
         spineRotOffset = new Vector3(spineRotX, spineRotY, spineRotZ);
     }
 
+    public void SetupPlayer()
+    {
+        currentAmmo = startingAmmo;
+        currentHealth = maxHealth;
+        weapon1.SetupWeapon();
+        weapon2.SetupWeapon();
+    }
+
     //instantiates weapon1 and weapon2 and assign w1 as the currentweapon and sets w2 to invisible
-    private void setupWeapons()
+    private void SetupWeapons()
     {
         GameObject weaponObject = GameObject.Instantiate(weapon1.gameObject, weaponHolder.position, weaponHolder.rotation) as GameObject;//instantiate as temp gameobject to assign it to variable
         weapon1 = weaponObject.GetComponent<Weapon>();
@@ -76,6 +85,28 @@ public class Player : NetworkBehaviour
         currentWeapon = weapon1;
 
         setWeaponVisibility(weapon2, false);
+    }
+
+    public void AddHealth(int amount)
+    {
+        if(currentHealth + amount < maxHealth)
+        {
+            currentHealth += amount;
+        } else
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    public void AddAmmo(int amount)
+    {
+        if (currentAmmo + amount < maxAmmo)
+        {
+            currentAmmo += amount;
+        } else
+        {
+            currentAmmo = maxAmmo;
+        }
     }
 
     //helper function to clean code up
@@ -178,7 +209,7 @@ public class Player : NetworkBehaviour
         //respawn if you have fallen
         if (this.transform.localPosition.y < 10)
         {
-          //  SSM.Respawn(this.gameObject); -----> uncomment
+            SSM.Respawn(this.gameObject);
         }
 
 

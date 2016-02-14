@@ -22,8 +22,13 @@ public class Weapon : MonoBehaviour {
 
     public int damage; //needs to be accessed by SSM to deal appropriate damage, implement later
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
+        SetupWeapon();
+
+    }
+
+    public void SetupWeapon() { 
         magazineAmmo = magazineSize;
     }
 
