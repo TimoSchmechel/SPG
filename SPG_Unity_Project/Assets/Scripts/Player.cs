@@ -151,7 +151,7 @@ public class Player : NetworkBehaviour
     public void useAmmo()
     {
         currentWeapon.magazineAmmo -= ammoShotCount;
-        Debug.Log(transform.name + " now has " + currentAmmo + " ammo.");
+       // Debug.Log(transform.name + " now has " + currentAmmo + " ammo.");
     }
 
     //default values
@@ -210,9 +210,17 @@ public class Player : NetworkBehaviour
         if (this.transform.localPosition.y < 10)
         {
             SSM.Respawn(this.gameObject);
+            CmdAddDeath(this.gameObject.name);
         }
 
 
+    }
+
+    [Command]
+    private void CmdAddDeath(string name)
+    {
+        GameManager.AddDeath(name);
+        GameManager.CreateScoreboardText();
     }
 
     void LateUpdate()

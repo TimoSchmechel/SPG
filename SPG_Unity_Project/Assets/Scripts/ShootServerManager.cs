@@ -92,9 +92,6 @@ public class ShootServerManager : NetworkBehaviour
     void RpcCollision(GameObject killedObject)
     {
         GameObject[] respawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-        GameManager.AddDeath(killedObject.name);
-        GameManager.PrintAllKD();
-        GameManager.UpdateScoreboard();
 
         int respawnNumber = Random.Range(0, respawnPoints.Length);
         print(respawnNumber);
@@ -102,8 +99,9 @@ public class ShootServerManager : NetworkBehaviour
         killedObject.GetComponent<Player>().SetupPlayer(); 
     }
 
-    [ClientRpc]
+
     // grabs the player id, sets it to a variable, takes the damage, then if killed, resets the damage and respawns 
+    [ClientRpc]
     void RpcDamageCalculator(string playerID, int Damage, string shooterName)
     {
         Player player = GameManager.GetPlayer(playerID);
@@ -121,10 +119,15 @@ public class ShootServerManager : NetworkBehaviour
 
                 if (player.currentHealth <= 0)
                 {
-                    GameManager.AddKill(shooterName);
+                    if (isLocalPlayer)
+                    {
+                        CmdAddKillAndDeath(shooterName, this.gameObject.name);
+                    }
+
+                    player.SetupPlayer();
                     CmdCollision(this.gameObject);
 
-                    player.currentHealth = 100;
+
                 }
             }
             else
@@ -139,15 +142,33 @@ public class ShootServerManager : NetworkBehaviour
 
             if (player.currentHealth <= 0)
             {
-                GameManager.AddKill(shooterName);
+                if (isLocalPlayer)
+                {
+                    CmdAddKillAndDeath(shooterName, this.gameObject.name);
+                }
 
                 //RpcCollision();
+                player.SetupPlayer();
                 CmdCollision(this.gameObject);
-                player.currentHealth = 100;
+
             }
         }
+    }
 
+    [Command]
+    private void CmdAddKillAndDeath(string shooterName, string killedName)
+    {
+        GameManager.AddKill(shooterName);
+        GameManager.AddDeath(killedName);
+        GameManager.CreateScoreboardText();
+        RpcUpdateClientScoreboardText(GameManager.scoreboardText);
 
+    }
+
+    [ClientRpc]
+    private void RpcUpdateClientScoreboardText(string text)
+    {
+        GameManager.UpdateScoreboard(text);
     }
 
 }

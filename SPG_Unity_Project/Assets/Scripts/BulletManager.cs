@@ -22,7 +22,7 @@ public class BulletManager : MonoBehaviour {
     void setRandomColor()
     {
         int randomNO = UnityEngine.Random.Range(0, 3);
-        print("Random = " + randomNO);
+        //print("Random = " + randomNO);
         if(shooter.GetComponent<Teams>().team ==1)
         {
             switch(randomNO)

@@ -15,7 +15,7 @@ public class Teams : NetworkBehaviour {
     void startTeam()
     {
         GameManager.RegisterTeam(this.gameObject.name, this);
-        print("Local: the name = " + this.gameObject.name +" team NO: "+team);
+       // print("Local: the name = " + this.gameObject.name +" team NO: "+team);
         playerTeamReady = true;
     }
    
@@ -23,7 +23,7 @@ public class Teams : NetworkBehaviour {
     void startTeamNonLocal()
     {
         GameManager.RegisterTeam(this.gameObject.name, this);
-        print("NonLocal: the name = " + this.gameObject.name + " team NO: " + team);
+       // print("NonLocal: the name = " + this.gameObject.name + " team NO: " + team);
     }
 
     void Start () {

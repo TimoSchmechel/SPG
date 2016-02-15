@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private static Dictionary<string, int> playerDeaths = new Dictionary<string, int>();
     private static int teamCount = 0;
     private static Text scoreboard;
+    public static string scoreboardText = "";
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
         _player.transform.name = _playerID;
         playerKills.Add(_playerID, 0);
         playerDeaths.Add(_playerID, 0);
+        CreateScoreboardText();
     }
 
     public static void UnRegisterPlayer(string _playerID)
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
 
         foreach (string key in players.Keys)
         {
-            print(GetPlayer(key)+ "teamValue = "+teamValue);
+           // print(GetPlayer(key)+ "teamValue = "+teamValue);
             if(teamValue == 1)
             {
                 teamValue = 2;
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour
     {
         if(teams.Count == 0)
         {
-            print("teamCount is 0");
+           // print("teamCount is 0");
             teamCount = 1;
         }
 
@@ -84,12 +86,12 @@ public class GameManager : MonoBehaviour
         if (teamCount == 1)
         {
             teamCount = 2;
-            print("newTeamCount = " + teamCount);
+           // print("newTeamCount = " + teamCount);
         }
         else if(teamCount == 2)
         {
             teamCount = 1;
-            print("newTeamCount = " + teamCount);
+            //print("newTeamCount = " + teamCount);
         }
     }
     public static void AddKill(string name)
@@ -114,14 +116,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void UpdateScoreboard()
+    public static void UpdateScoreboard(string updatedScoreboardText)
     {
-        string scoreboardText = "";
+       scoreboardText = updatedScoreboardText;
+
+       scoreboard.text = scoreboardText;
+    }
+
+    public static void CreateScoreboardText()
+    {
+        string tmp = "";
         foreach (KeyValuePair<string, int> killsEntry in playerKills)
         {
-            scoreboardText += killsEntry.Key + " - kills: " + killsEntry.Value + " Deaths: " + playerDeaths[killsEntry.Key] + "\n";
+            tmp += killsEntry.Key + " - kills: " + killsEntry.Value + " Deaths: " + playerDeaths[killsEntry.Key] + "\n";
         }
 
-        scoreboard.text = scoreboardText;
+        UpdateScoreboard(tmp);
     }
 }
