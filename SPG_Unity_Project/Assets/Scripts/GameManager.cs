@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,12 +13,12 @@ public class GameManager : MonoBehaviour
     private static Dictionary<string, int> playerKills = new Dictionary<string, int>();
     private static Dictionary<string, int> playerDeaths = new Dictionary<string, int>();
     private static int teamCount = 0;
-    private static Text scoreboard;
-    public static string scoreboardText = "";
+    private static ScoreboardController scoreboardController;
+    public static string[] scoreboardText;
 
     void Start()
     {
-        scoreboard = GameObject.Find("Scoreboard").GetComponent<Text>();
+        scoreboardController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
     }
 
     public static void RegisterPlayer(string _netID, Player _player)
@@ -116,20 +117,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void UpdateScoreboard(string updatedScoreboardText)
+    public static void UpdateScoreboard(string[] updatedScoreboardText)
     {
        scoreboardText = updatedScoreboardText;
 
-       scoreboard.text = scoreboardText;
+       scoreboardController.SetScoreboard(scoreboardText);
     }
 
     public static void CreateScoreboardText()
     {
-        string tmp = "";
+        string[] tmp = new string[3];
+        string colour = "#ff0000ff";
+
         foreach (KeyValuePair<string, int> killsEntry in playerKills)
         {
-            tmp += killsEntry.Key + " - kills: " + killsEntry.Value + " Deaths: " + playerDeaths[killsEntry.Key] + "\n";
+            try {
+                if (GetTeam(killsEntry.Key) == 1)
+                {
+                    colour = "red";
+                }
+                if (GetTeam(killsEntry.Key) == 2)
+                {
+                    colour = "blue";
+                }
+            } catch (Exception e)
+            {
+                colour = "#000000ff";
+            }
+
+
+            tmp[0] += "<color=" + colour + ">" + killsEntry.Key + "</color>\n";
+            tmp[1] += killsEntry.Value + "\n";
+            tmp[2] += playerDeaths[killsEntry.Key] + "\n";
+
         }
+
 
         UpdateScoreboard(tmp);
     }

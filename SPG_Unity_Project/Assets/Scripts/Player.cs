@@ -9,7 +9,7 @@ public class Player : NetworkBehaviour
 
     public int startingAmmo = 100;
 
-    private int maxHealth = 100;
+    public static int maxHealth = 100;
     private int maxAmmo = 200;
     private int ammoShotCount = 1;
 
@@ -209,18 +209,15 @@ public class Player : NetworkBehaviour
         //respawn if you have fallen
         if (this.transform.localPosition.y < 10)
         {
-            SSM.Respawn(this.gameObject);
-            CmdAddDeath(this.gameObject.name);
+            SSM.CmdCollision(this.gameObject);
+            if (isLocalPlayer)
+            {
+                SSM.CmdAddDeath(this.gameObject.name);
+                transform.position = new Vector3(2000, 2000, 2000); //temp position so that they only get killed once, not perfect but works
+            }
         }
 
 
-    }
-
-    [Command]
-    private void CmdAddDeath(string name)
-    {
-        GameManager.AddDeath(name);
-        GameManager.CreateScoreboardText();
     }
 
     void LateUpdate()

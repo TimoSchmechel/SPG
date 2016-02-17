@@ -12,6 +12,11 @@ public class ShootServerManager : NetworkBehaviour
     public Transform gunShooter; //maybe also grab gunshooter dynamically from player.currentWeapon
     private Transform endShooter;
 
+    void Start()
+    {
+        Invoke("CmdUpdateScoreboard", 2f);
+    }
+
     public void Shoot(string shooterID, Vector3 lookPos)
     {
         if (isClient)//checks if this code is running on the client
@@ -67,7 +72,7 @@ public class ShootServerManager : NetworkBehaviour
     {
         if (collision.gameObject.tag == "Paintball" && collision.gameObject.GetComponent<BulletManager>().bulletTeam != this.gameObject.GetComponent<Teams>().team)
         {
-            print("BulletNO: " + collision.gameObject.GetComponent<BulletManager>().bulletTeam + " TeamNO: " + this.gameObject.GetComponent<Teams>().team );
+           // print("BulletNO: " + collision.gameObject.GetComponent<BulletManager>().bulletTeam + " TeamNO: " + this.gameObject.GetComponent<Teams>().team );
             BulletManager b = collision.gameObject.GetComponent<BulletManager>();
 
             if(!b.damageSwitch)
@@ -79,11 +84,27 @@ public class ShootServerManager : NetworkBehaviour
                 b.damageSwitch = true;
             }
         }
+        /*
+        print("collision");
+        if (collision.gameObject.tag == "KillFloor")
+        {
+            // RpcDamageCalculator(gameObject.name, Player.maxHealth, b.GetComponent<BulletManager>().shooter.name);
+            print("kill floor");
+            if (isLocalPlayer)
+            {
+                print("local");
+                gameObject.GetComponent<Player>().SetupPlayer();
+                CmdCollision(this.gameObject);
+                CmdAddDeath(gameObject.name);
+            }
+        }
+
+    */
     }
 
     //runs on server, manages and updates all respawned objects at the same position on each client
     [Command]
-    void CmdCollision(GameObject killedObject)
+    public void CmdCollision(GameObject killedObject)
     {
         RpcCollision(killedObject);
     }
@@ -162,13 +183,27 @@ public class ShootServerManager : NetworkBehaviour
         GameManager.AddDeath(killedName);
         GameManager.CreateScoreboardText();
         RpcUpdateClientScoreboardText(GameManager.scoreboardText);
+    }
 
+    [Command]
+    public void CmdAddDeath(string killedName)
+    {
+        GameManager.AddDeath(killedName);
+        GameManager.CreateScoreboardText();
+        RpcUpdateClientScoreboardText(GameManager.scoreboardText);
     }
 
     [ClientRpc]
-    private void RpcUpdateClientScoreboardText(string text)
+    private void RpcUpdateClientScoreboardText(string[] text)
     {
         GameManager.UpdateScoreboard(text);
     }
+
+    [Command] 
+    public void CmdUpdateScoreboard()
+    {
+        RpcUpdateClientScoreboardText(GameManager.scoreboardText);
+    }
+
 
 }
