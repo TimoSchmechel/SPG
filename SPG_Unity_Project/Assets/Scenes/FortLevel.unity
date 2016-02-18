@@ -229,7 +229,6 @@ Transform:
   - {fileID: 922964700}
   - {fileID: 1104883905}
   - {fileID: 1312308071}
-  - {fileID: 1121733043}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1 &148105531
@@ -494,11 +493,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22488934, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22488934, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22463952, guid: ede06b37cc752e94f9fde24d4d08e537, type: 2}
       propertyPath: m_AnchorMin.x
@@ -767,7 +766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &564850941
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1709,46 +1708,6 @@ MonoBehaviour:
   m_Script: {fileID: -1050975500, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1121733042
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1121733043}
-  - 65: {fileID: 1121733044}
-  m_Layer: 0
-  m_Name: KillFloor
-  m_TagString: KillFloor
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1121733043
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1121733042}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.6, z: 0}
-  m_LocalScale: {x: 1000, y: 100, z: 1000}
-  m_Children: []
-  m_Father: {fileID: 103074802}
-  m_RootOrder: 6
---- !u!65 &1121733044
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1121733042}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!4 &1172532252 stripped
 Transform:
   m_PrefabParentObject: {fileID: 487526, guid: 15194a78a46cf5c4b8b5a1f5a21758de, type: 2}
@@ -2458,7 +2417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1527724007
 MeshRenderer:
   m_ObjectHideFlags: 0
