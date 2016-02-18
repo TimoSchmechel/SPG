@@ -46,7 +46,7 @@ public class PlayerShoot : NetworkBehaviour {
             this.enabled = false;
         }
 
-        ammo = GameObject.Find("Canvas/Ammo Counter").GetComponent<Text>();
+        ammo = GameObject.Find("AmmoCounter").GetComponent<Text>();
         //player.setMaxAmmo(ammo);
     }
 

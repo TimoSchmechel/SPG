@@ -15,7 +15,7 @@ public class HealthManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         player = GetComponent<Player>(); // get player component
-        healthBar = GameObject.Find("Canvas/HealthHUD").GetComponent<Slider>(); // find the slider in the canavs, we can change this to local health bar
+        healthBar = GameObject.Find("HealthHUD").GetComponent<Slider>(); // find the slider in the canavs, we can change this to local health bar
 	}
 	
 	// Update is called once per frame

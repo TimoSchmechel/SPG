@@ -9,7 +9,7 @@ public class ChatControl : NetworkBehaviour {
     Text list;
     // Use this for initialization
     void Start () {
-        list = GameObject.Find("Canvas/Chat/Text").GetComponent<Text>();
+        list = GameObject.Find("ChatText").GetComponent<Text>();
         textL.Callback = OnTextLChanged;
     }
 	

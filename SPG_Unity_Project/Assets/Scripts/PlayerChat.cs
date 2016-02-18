@@ -13,8 +13,8 @@ public class PlayerChat : NetworkBehaviour {
 
     // Use this for initialization
     public override void OnStartClient () {
-        input = GameObject.Find("Canvas/Chat/Input");
-        chat = GameObject.Find("Canvas/Chat").GetComponent<ChatControl>();
+        input = GameObject.Find("ChatInput");
+        chat = GameObject.Find("Chat").GetComponent<ChatControl>();
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         input.GetComponent<InputField>().Select();
         input.GetComponent<InputField>().OnPointerClick(new PointerEventData(EventSystem.current));
