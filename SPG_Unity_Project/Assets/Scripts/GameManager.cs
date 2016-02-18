@@ -14,11 +14,14 @@ public class GameManager : MonoBehaviour
     private static Dictionary<string, int> playerDeaths = new Dictionary<string, int>();
     private static int teamCount = 0;
     private static ScoreboardController scoreboardController;
+    private static Text teamScoreboard;
     public static string[] scoreboardText;
+    public static string teamScoresText;
 
     void Start()
     {
         scoreboardController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
+        teamScoreboard = GameObject.Find("TeamScores").GetComponent<Text>();
     }
 
     public static void RegisterPlayer(string _netID, Player _player)
@@ -117,10 +120,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void UpdateScoreboard(string[] updatedScoreboardText)
+    public static void UpdateScoreboard(string[] updatedScoreboardText, string updatedTeamScores)
     {
        scoreboardText = updatedScoreboardText;
+       teamScoresText = updatedTeamScores;
 
+        teamScoreboard.text = teamScoresText;
        scoreboardController.SetScoreboard(scoreboardText);
     }
 
@@ -128,6 +133,8 @@ public class GameManager : MonoBehaviour
     {
         string[] tmp = new string[3];
         string colour = "#ff0000ff";
+        int tmpRedKills = 0;
+        int tmpBlueKills = 0;
 
         foreach (KeyValuePair<string, int> killsEntry in playerKills)
         {
@@ -135,10 +142,12 @@ public class GameManager : MonoBehaviour
                 if (GetTeam(killsEntry.Key) == 1)
                 {
                     colour = "red";
+                    tmpRedKills += killsEntry.Value;
                 }
                 if (GetTeam(killsEntry.Key) == 2)
                 {
                     colour = "blue";
+                    tmpBlueKills += killsEntry.Value;
                 }
             } catch (Exception e)
             {
@@ -151,8 +160,8 @@ public class GameManager : MonoBehaviour
             tmp[2] += playerDeaths[killsEntry.Key] + "\n";
 
         }
+        string tmpTeamScores = "Red - " + tmpRedKills + " : " + tmpBlueKills + " - Blue";
 
-
-        UpdateScoreboard(tmp);
+        UpdateScoreboard(tmp, tmpTeamScores);
     }
 }

@@ -182,7 +182,7 @@ public class ShootServerManager : NetworkBehaviour
         GameManager.AddKill(shooterName);
         GameManager.AddDeath(killedName);
         GameManager.CreateScoreboardText();
-        RpcUpdateClientScoreboardText(GameManager.scoreboardText);
+        RpcUpdateClientScoreboardText(GameManager.scoreboardText, GameManager.teamScoresText);
     }
 
     [Command]
@@ -190,19 +190,19 @@ public class ShootServerManager : NetworkBehaviour
     {
         GameManager.AddDeath(killedName);
         GameManager.CreateScoreboardText();
-        RpcUpdateClientScoreboardText(GameManager.scoreboardText);
+        RpcUpdateClientScoreboardText(GameManager.scoreboardText, GameManager.teamScoresText);
     }
 
     [ClientRpc]
-    private void RpcUpdateClientScoreboardText(string[] text)
+    private void RpcUpdateClientScoreboardText(string[] text, string teamScores)
     {
-        GameManager.UpdateScoreboard(text);
+        GameManager.UpdateScoreboard(text, teamScores);
     }
 
     [Command] 
     public void CmdUpdateScoreboard()
     {
-        RpcUpdateClientScoreboardText(GameManager.scoreboardText);
+        RpcUpdateClientScoreboardText(GameManager.scoreboardText, GameManager.teamScoresText);
     }
 
 
