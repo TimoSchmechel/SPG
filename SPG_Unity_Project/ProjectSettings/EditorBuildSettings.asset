@@ -15,3 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Villa.unity
   - enabled: 1
     path: Assets/Scenes/MineLevelv2.unity
+  - enabled: 1
+    path: Assets/Scenes/CruiseShip.unity
+  - enabled: 1
+    path: Assets/Scenes/River.unity
